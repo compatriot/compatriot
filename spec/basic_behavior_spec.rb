@@ -11,7 +11,7 @@ describe "The very basics" do
   end
 
   it "visits an app's homepage using selenium and takes screenshots" do
-    @x_proj = XProj.new
+    @x_proj = XProj::Runner.new
     @x_proj.start
 
     assert File.exists?("x_proj")
