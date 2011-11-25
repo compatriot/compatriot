@@ -4,9 +4,9 @@ require File.expand_path('../lib/x_proj/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Carol Nichols"]
   gem.email         = ["carol.nichols@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.description   = %q{Finds likely UI browser cross-compatibility issues.}
+  gem.summary       = %q{Runs a command in multiple browsers using selenium then compares the screenshots and presents those likely to have cross-browser incompatibilities.}
+  gem.homepage      = "http://carol-nichols.com"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
