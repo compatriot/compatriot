@@ -25,7 +25,6 @@ describe "The very basics" do
   end
 
   it "creates directories in which to store the results based on the date" do
-
     assert File.exists?(@results_directory)
     assert File.exists?(@firefox_directory)
     assert File.exists?(@chrome_directory)
@@ -36,7 +35,8 @@ describe "The very basics" do
     Dir.glob(File.join(@chrome_directory, "*.png")).size.must_equal 1
   end
 
-  # it "creates an index page that shows the screenshots" do
-  #
-  # end
+  it "creates an index page that shows the screenshots" do
+    assert File.exists?(File.join(@results_directory, "index.html"))
+
+  end
 end
