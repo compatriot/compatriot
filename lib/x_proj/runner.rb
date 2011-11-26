@@ -4,22 +4,26 @@ module XProj
   class Runner
     BROWSERS = ["firefox", "chrome"]
 
-    def initialize(clock = DateTime)
+    def initialize(app, clock = DateTime)
+      @app   = app
       @clock = clock
     end
 
     def start
-      make_results_directory
+      results_directory = make_results_directory
+      BROWSERS.each do |b|
+        browser = XProj::Browser.new(b, @app, results_directory)
+        browser.start
+      end
     end
 
     private
 
     def make_results_directory
       timestamp = @clock.now.strftime("%Y-%m-%d-%H-%M-%S")
-      FileUtils.mkdir_p("tmp/results/#{timestamp}")
-      BROWSERS.each do |b|
-        FileUtils.mkdir_p("tmp/results/#{timestamp}/#{b}")
-      end
+      directory_name = "tmp/results/#{timestamp}"
+      FileUtils.mkdir_p(directory_name)
+      directory_name
     end
   end
 end
