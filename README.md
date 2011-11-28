@@ -25,8 +25,8 @@ What to do to use it
 
 ### Chrome
 * Need chromedriver in your path
-** From: http://code.google.com/p/chromium/downloads/list
-** More info: http://code.google.com/p/selenium/wiki/ChromeDriver
+  * From: http://code.google.com/p/chromium/downloads/list
+  * More info: http://code.google.com/p/selenium/wiki/ChromeDriver
 
 ### Internet Explorer
 * Need to be running on windows
@@ -45,9 +45,9 @@ What to do to contribute
 
 Contributions are very welcome! This is a very rough proof-of-concept at this point, so there are many opportunities for improvement. Feel free to:
 
-* File a github issue with any problems or suggestions :heart:
-* Fork and send a pull request with failing tests illustrating the bug or currently unsupported use case :heart: :heart:
-* Fork and send a pull request with bugfixes or new features with passing tests! :heart: :heart: :heart:
+* File a github issue with any problems or suggestions <3
+* Fork and send a pull request with failing tests illustrating the bug or currently unsupported use case <3 <3
+* Fork and send a pull request with bugfixes or new features with passing tests! <3 <3 <3
 
 Standing on the shoulders of giants
 -----------------------------------
