@@ -54,8 +54,9 @@ Standing on the shoulders of giants
 
 Many thanks to the wonderful libraries that make this gem possible:
 
-* capybara
-* selenium-webdriver
+* [capybara](https://github.com/jnicklas/capybara)
+* [selenium-webdriver](http://seleniumhq.org/docs/01_introducing_selenium.html#selenium-2-aka-selenium-webdriver)
+* [chunky_png](https://github.com/wvanbergen/chunky_png) (and especially [this blog post about using chunky_png to create image diffs](http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/?utm_source=rubyweekly&utm_medium=email) by Jeff Kreeftmeijer)
 
 License
 -------

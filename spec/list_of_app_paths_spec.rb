@@ -47,4 +47,6 @@ describe "Hit a list of paths for this app" do
     }
     @x.results.must_equal(results_hash)
   end
+
+  it "should have the home page row colored green and the chrome bug row colored red"
 end

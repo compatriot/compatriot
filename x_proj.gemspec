@@ -15,7 +15,9 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = XProj::VERSION
 
-  gem.add_runtime_dependency "capybara", "~> 1.1.2"
-  gem.add_runtime_dependency "rake", "~> 0.9.2.2"
+  gem.add_runtime_dependency "capybara",   "~> 1.1.2"
+  gem.add_runtime_dependency "rake",       "~> 0.9.2.2"
+  gem.add_runtime_dependency "chunky_png", "~> 1.2.5"
+
   gem.add_development_dependency "sinatra", "~> 1.3.1"
 end
