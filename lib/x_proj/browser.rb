@@ -5,23 +5,37 @@ module XProj
   class Browser
     include Capybara::DSL
 
-    def initialize(browser_name, app, results_directory)
+    def initialize(browser_name)
       @browser_name        = browser_name
       @browser_selenium_id = translate_to_selenium(@browser_name)
-      @results_directory   = results_directory
-      @app = app
+      @file_id = 1
     end
 
-    def start
+    def take_screenshots(params)
+      @results_directory = params[:results_directory]
+      @app = params[:app]
+      @paths = params[:paths]
+
+      initialize_capybara
+
+      @paths.each do |path|
+        visit path
+        take_screenshot
+      end
+    end
+
+    def initialize_capybara
       driver = "selenium_#{@browser_name}".to_sym
       Capybara.register_driver driver do |app|
         Capybara::Selenium::Driver.new(app, :browser => @browser_selenium_id)
       end
       Capybara.default_driver = driver
       Capybara.app = @app
+    end
 
-      visit "/"
-      file_base_name = "1.png"
+    def take_screenshot
+      file_base_name = "#{@file_id}.png"
+      @file_id += 1
       filepath = File.join(screenshot_path, file_base_name)
       Capybara.page.driver.browser.save_screenshot(filepath)
     end

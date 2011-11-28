@@ -2,8 +2,8 @@ require "fileutils"
 
 module XProj
   class Runner
-    def self.start(app, clock = DateTime)
-      runner = new(app, clock)
+    def self.start(app, paths, clock = DateTime)
+      runner = new(app, paths, clock)
       runner.take_screenshots
       runner.make_index_page
     end
@@ -12,15 +12,21 @@ module XProj
 
     attr_reader :app
 
-    def initialize(app, clock)
+    def initialize(app, paths, clock)
       @app   = app
+      @paths = paths
       @clock = clock
     end
 
     def take_screenshots
+      @results = {}
       BROWSERS.each do |b|
-        browser = XProj::Browser.new(b, @app, results_directory)
-        browser.start
+        browser = XProj::Browser.new(b)
+        @results[b] = browser.take_screenshots(
+          :app => @app,
+          :paths => @paths,
+          :results_directory => results_directory
+        )
       end
     end
 

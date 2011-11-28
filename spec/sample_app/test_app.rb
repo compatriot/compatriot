@@ -7,7 +7,11 @@ class TestApp < Sinatra::Base
   set :static, true
 
   get '/' do
-    'Hello world! <a href="with_html">Relative</a>'
+    "<h1>Hello world!</h1"
+  end
+
+  get "/chrome-css-bug" do
+    "<table><tr style='background: url(/images/smileyface.jpg) no-repeat;'><td style='padding:30px;'>One</td><td style='padding:30px;'>Two</td></tr></table>"
   end
 
 end
