@@ -17,7 +17,7 @@ describe "Hit a list of paths for this app" do
     @firefox_directory = File.join(@results_directory, "firefox")
     @chrome_directory  = File.join(@results_directory, "chrome")
 
-    x = XProj::Runner.start(TestApp, ["/", "/chrome-css-bug"], @fixed_clock)
+    @x = XProj::Runner.start(TestApp, ["/", "/chrome-css-bug"], @fixed_clock)
   end
 
   after do
@@ -33,5 +33,19 @@ describe "Hit a list of paths for this app" do
     results_index = IO.read(File.join(@results_directory, "index.html"))
     xml = Nokogiri::XML(results_index)
     xml.xpath("//tr[td]").size.must_equal(2)
+  end
+
+  it "gets back a hash of the screenshot filenames indexed by browser and path" do
+    results_hash = {
+      "firefox" => {
+        "/" => "1.png",
+        "/chrome-css-bug" => "2.png"
+      },
+      "chrome" => {
+        "/" => "1.png",
+        "/chrome-css-bug" => "2.png"
+      }
+    }
+    @x.results.must_equal(results_hash)
   end
 end

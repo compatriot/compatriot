@@ -6,11 +6,12 @@ module XProj
       runner = new(app, paths, clock)
       runner.take_screenshots
       runner.make_index_page
+      runner
     end
 
     BROWSERS = ["firefox", "chrome"]
 
-    attr_reader :app
+    attr_reader :app, :results
 
     def initialize(app, paths, clock)
       @app   = app

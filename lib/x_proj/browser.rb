@@ -9,6 +9,7 @@ module XProj
       @browser_name        = browser_name
       @browser_selenium_id = translate_to_selenium(@browser_name)
       @file_id = 1
+      @results = {}
     end
 
     def take_screenshots(params)
@@ -20,8 +21,9 @@ module XProj
 
       @paths.each do |path|
         visit path
-        take_screenshot
+        @results[path] = screenshot
       end
+      @results
     end
 
     def initialize_capybara
@@ -33,11 +35,12 @@ module XProj
       Capybara.app = @app
     end
 
-    def take_screenshot
+    def screenshot
       file_base_name = "#{@file_id}.png"
       @file_id += 1
       filepath = File.join(screenshot_path, file_base_name)
       Capybara.page.driver.browser.save_screenshot(filepath)
+      file_base_name
     end
 
     def screenshot_path
