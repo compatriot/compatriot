@@ -6,7 +6,6 @@ describe "The very basics" do
   before do
     @current_dir = Dir.getwd
     Dir.chdir(File.join(File.dirname(__FILE__), 'sample_app'))
-    FileUtils.remove_dir(File.join("tmp", "results"), true)
 
     fake_date = DateTime.parse("2012-01-01 00:00:00 UTC")
     fake_date_dir = fake_date.strftime("%Y-%m-%d-%H-%M-%S")
