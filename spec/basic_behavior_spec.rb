@@ -21,18 +21,18 @@ describe "The very basics" do
   end
 
   it "holds onto the app we give it" do
-    x = XProj::Runner.new(TestApp, ["/"], @fixed_clock)
+    x = Compatriot::Runner.new(TestApp, ["/"], @fixed_clock)
     x.app.must_equal(TestApp)
   end
 
   it "names a results directory based on the clock" do
-    x = XProj::Runner.new(TestApp, ["/"], @fixed_clock)
+    x = Compatriot::Runner.new(TestApp, ["/"], @fixed_clock)
     x.results_directory.must_equal(@results_directory)
   end
 
   describe "self#start" do
     before do
-      XProj::Runner.start(TestApp, ["/"], @fixed_clock)
+      Compatriot::Runner.start(TestApp, ["/"], @fixed_clock)
     end
 
     it "creates directories in which to store the results based on the date" do

@@ -1,6 +1,6 @@
 require "fileutils"
 
-module XProj
+module Compatriot
   class Runner
     def self.start(app, paths, clock = DateTime)
       runner = new(app, paths, clock)
@@ -22,7 +22,7 @@ module XProj
     def take_screenshots
       @results = {}
       BROWSERS.each do |b|
-        browser = XProj::Browser.new(b)
+        browser = Compatriot::Browser.new(b)
         @results[b] = browser.take_screenshots(
           :app => @app,
           :paths => @paths,
@@ -40,7 +40,7 @@ module XProj
     end
 
     def make_index_page
-      presenter = XProj::ResultsPresenter.new(results_directory)
+      presenter = Compatriot::ResultsPresenter.new(results_directory)
       presenter.make_index_page(@results)
     end
   end

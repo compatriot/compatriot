@@ -16,7 +16,7 @@ describe "Hit a list of paths for this app" do
     @firefox_directory = File.join(@results_directory, "firefox")
     @chrome_directory  = File.join(@results_directory, "chrome")
 
-    @x = XProj::Runner.start(TestApp, ["/", "/chrome-css-bug"], @fixed_clock)
+    @x = Compatriot::Runner.start(TestApp, ["/", "/chrome-css-bug"], @fixed_clock)
   end
 
   after do

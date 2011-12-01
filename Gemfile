@@ -1,4 +1,4 @@
 source 'http://rubygems.org'
 
-# Specify your gem's dependencies in x_proj.gemspec
+# Specify your gem's dependencies in compatriot.gemspec
 gemspec

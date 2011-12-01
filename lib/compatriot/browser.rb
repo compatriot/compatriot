@@ -1,7 +1,7 @@
 require "fileutils"
 require 'capybara/dsl'
 
-module XProj
+module Compatriot
   class Browser
     include Capybara::DSL
 

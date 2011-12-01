@@ -1,6 +1,6 @@
 require 'erb'
 
-module XProj
+module Compatriot
   class ResultsPresenter
     def initialize(results_directory)
       @results_directory = results_directory

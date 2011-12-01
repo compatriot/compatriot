@@ -1,3 +1,7 @@
+Compatriot
+----------
+**Compat**ibility + **riot**! It's your **friend** that helps you with browser compatibility!
+
 What this is
 ------------
 

@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/x_proj/version', __FILE__)
+require File.expand_path('../lib/compatriot/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Carol Nichols"]
@@ -11,9 +11,9 @@ Gem::Specification.new do |gem|
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  gem.name          = "x_proj"
+  gem.name          = "compatriot"
   gem.require_paths = ["lib"]
-  gem.version       = XProj::VERSION
+  gem.version       = Compatriot::VERSION
 
   gem.add_runtime_dependency "capybara",   "~> 1.1.2"
   gem.add_runtime_dependency "rake",       "~> 0.9.2.2"
