@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["carol.nichols@gmail.com"]
   gem.description   = %q{Finds likely UI browser cross-compatibility issues.}
   gem.summary       = %q{Runs a command in multiple browsers using selenium then compares the screenshots and presents those likely to have cross-browser incompatibilities.}
-  gem.homepage      = "http://carol-nichols.com"
+  gem.homepage      = "https://github.com/clnclarinet/compatriot"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
