@@ -21,7 +21,7 @@ What it will do in the future
 * Have documentation
 * Have a screenshot of sample results in the README
 * Have unit tests and better tests
-* Be on travisci
+* Be on travis-ci
 * Not have a diff that's a different size than the originals
 * Find the largest, darkest contiguous region in the image diff and have a threshold of pass/fail based on that
 * Perform better on the image processing (by sampling/resizing, using oily_png, etc)
