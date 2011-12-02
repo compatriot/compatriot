@@ -20,6 +20,7 @@ What it will do in the future
 * Given a test command that uses capybara, runs those tests and takes screenshots
 * Automatically compare the screenshots across browsers and flags those that are more than some configurable threshold different
 * Allow configuration of which browsers to use
+* Connect to virtual machines so that you don't have to have all the browsers on the machine you're running the tests on
 
 What to do to use it
 --------------------
@@ -32,7 +33,7 @@ What to do to use it
   * From: http://code.google.com/p/chromium/downloads/list
   * More info: http://code.google.com/p/selenium/wiki/ChromeDriver
 
-### Internet Explorer
+### Internet Explorer (SUPPORT NOT DONE YET)
 * Need to be running on windows
 
 What to do to run its tests
