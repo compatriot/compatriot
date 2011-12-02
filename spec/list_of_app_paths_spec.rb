@@ -34,19 +34,22 @@ describe "Hit a list of paths for this app" do
     xml.xpath("//tr[td]").size.must_equal(2)
   end
 
-  it "gets back a hash of the screenshot filenames indexed by browser and path" do
-    results_hash = {
-      "firefox" => {
-        "/" => "1.png",
-        "/chrome-css-bug" => "2.png"
-      },
-      "chrome" => {
-        "/" => "1.png",
-        "/chrome-css-bug" => "2.png"
-      }
-    }
-    @x.results.must_equal(results_hash)
+  it "gets a list of the browsers in the results" do
+    @x.results.browsers.must_equal(["firefox", "chrome"])
   end
 
-  it "should have the home page row colored green and the chrome bug row colored red"
+  it "gets a list of the paths in the results" do
+    @x.results.paths.must_equal(["/", "/chrome-css-bug"])
+  end
+
+  it "gets the filename of the screenshot for a particular browser and path" do
+    @x.results.screenshot_for("firefox", "/").must_equal("1.png")
+    @x.results.screenshot_for("firefox", "/chrome-css-bug").must_equal("2.png")
+    @x.results.screenshot_for("chrome", "/").must_equal("1.png")
+    @x.results.screenshot_for("chrome", "/chrome-css-bug").must_equal("2.png")
+  end
+
+  it "should have the home page row colored green and the chrome bug row colored red" do
+    @x.compute_diffs
+  end
 end

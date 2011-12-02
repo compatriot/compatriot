@@ -17,18 +17,27 @@ module Compatriot
       @app   = app
       @paths = paths
       @clock = clock
+      @results = Compatriot::Results.new
     end
 
     def take_screenshots
-      @results = {}
       BROWSERS.each do |b|
-        browser = Compatriot::Browser.new(b)
-        @results[b] = browser.take_screenshots(
-          :app => @app,
-          :paths => @paths,
+        @results.take_screenshots(
+          :browser           => b,
+          :app               => @app,
+          :paths             => @paths,
           :results_directory => results_directory
         )
       end
+    end
+
+    def compute_diffs
+      @results.compute_diffs
+    end
+
+    def make_index_page
+      presenter = Compatriot::ResultsPresenter.new(results_directory)
+      presenter.make_index_page(@results)
     end
 
     def results_directory
@@ -37,11 +46,6 @@ module Compatriot
       directory_name = "tmp/results/#{timestamp}"
       FileUtils.mkdir_p(directory_name)
       @results_directory = directory_name
-    end
-
-    def make_index_page
-      presenter = Compatriot::ResultsPresenter.new(results_directory)
-      presenter.make_index_page(@results)
     end
   end
 end

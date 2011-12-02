@@ -10,8 +10,8 @@ module Compatriot
       index_page_file = File.join(@results_directory, "index.html")
 
       b = binding
-      browsers = results.keys
-      paths = results[browsers.first].keys
+      browsers = results.browsers
+      paths = results.paths
 
       html = ERB.new <<-EOF
         <html>
@@ -42,7 +42,7 @@ module Compatriot
                   </td>
                   <% browsers.each do |browser| %>
                     <td>
-                      <img src="<%= browser %>/<%= results[browser][path] %>" />
+                      <img src="<%= browser %>/<%= results.screenshot_for(browser, path) %>" />
                     </td>
                   <% end %>
                 </tr>
