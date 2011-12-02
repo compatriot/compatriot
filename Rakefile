@@ -4,12 +4,6 @@ require 'rake/clean'
 require 'rake/testtask'
 require 'yard'
 
-desc "Run tests"
-task :test do
-  test_task = Rake::TestTask.new("tests") do |t|
-    t.test_files = Dir.glob(File.join("spec", "**", "*_spec.rb"))
-  end
-  task("tests").execute
 begin
   Bundler.setup :default, :development
 rescue Bundler::BundlerError => error
@@ -19,3 +13,10 @@ rescue Bundler::BundlerError => error
 end
 
 Bundler::GemHelper.install_tasks
+desc "Run all of the tests"
+Rake::TestTask.new do |config|
+  config.libs << 'test'
+  config.pattern = 'test/**/test_*'
+  config.verbose = true
+  config.warning = true
+end
