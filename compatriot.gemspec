@@ -21,6 +21,7 @@ Gem::Specification.new do |gem|
 
   if RUBY_PLATFORM =~ /1\.8/
     gem.add_development_dependency 'minitest', '~> 2.6.2'
+    gem.add_dependency 'backports', '~> 2.3.0'
   end
 
   gem.add_development_dependency "sinatra", "~> 1.3.1"
