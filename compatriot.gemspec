@@ -19,8 +19,9 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Compatriot::VERSION
 
-
-  gem.add_development_dependency 'sinatra', '~> 1.3.1'
+  # To get the newest minitest features!
+  gem.add_development_dependency 'minitest', '~> 2.8.1'
+  gem.add_development_dependency 'sinatra',  '~> 1.3.1'
 
   gem.add_dependency 'capybara',   '~> 1.1.2'
   gem.add_dependency 'rake',       '~> 0.9.2.2'
