@@ -33,8 +33,7 @@ What to do to use it
   * From: http://code.google.com/p/chromium/downloads/list
   * More info: http://code.google.com/p/selenium/wiki/ChromeDriver
 
-### Internet Explorer (SUPPORT NOT DONE YET)
-* Need to be running on windows
+See examples in the examples directory. When you run a file similar to the examples, it will save results in _current-directory_/tmp/results/_timestamp_/_browser_
 
 What to do to run its tests
 ---------------------------
