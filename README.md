@@ -58,8 +58,10 @@ This is using minispec for testing.
 How You Can Contribute
 ----------------------
 
+* [Documentation](https://github.com/krainboltgreene/tardis/wiki)
 * [Issues](https://github.com/krainboltgreene/tardis/issues)
 
+Feel free to contribute to the documentation wiki if you feel something is lacking.
 Remember that we really want to know if something is wrong, so use the Issue List if you have a problem.
 This is a very rough proof-of-concept at this point, so there are many opportunities for improvement. Feel free to:
 
@@ -73,6 +75,7 @@ This is a very rough proof-of-concept at this point, so there are many opportuni
   * `.rvmrc`
   * `.gitignore`
   * Any part of the git history
+* **Write tests** specifically for the changes you've made, if no test exist
 * **Push** your feature or hotfix branch to Github.
 * Make a **Pull Request**
 
