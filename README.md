@@ -1,11 +1,12 @@
 Compatriot
-----------
-**Compat**ibility + **riot**! It's your **friend** that helps you with browser compatibility!
+==========
 
-What this is
-------------
+**Compat**ibility + **riot**! It's the *friend** that helps with browser compatibility!
+This Ruby gem makes cross-browser testing less painful.
+It's goal is to help identify pages that appear to have significant variations when rendered in different browsers.
+You can spend your time fixing the cross-browser problems rather than looking for them.
+Don't let your users find the inconsistencies and get to them first.
 
-This is a Ruby gem to make cross-browser testing less painful. Its goal is to help identify pages that appear to have significant variations when rendered in different browsers. That way, you can spend your time fixing the cross-browser incompatibilities rather than spending your time looking for them, or worse, not looking for them at all and letting your users find them.
 
 What it does now
 ----------------
