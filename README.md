@@ -73,6 +73,8 @@ Contributors
 ------------
 * Carol Nichols ([twitter](http://twitter.com/carols10cents), [website](http://carol-nichols.com))
 * Andrew Cox ([twitter](https://twitter.com/coxandrew), [website](http://andrewcox.org/))
+* Kurtis Rainbolt-Greene ([twitter](https://twitter.com/krainboltgreene)) ([website](http://kurtisrainboltgreene.name/))
+* Steve Klabnik ([twitter](https://twitter.com/steveklabnik)) ([website](http://www.steveklabnik.com/))
 * You???
 
 License
