@@ -19,6 +19,9 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Compatriot::VERSION
 
+  if RUBY_PLATFORM =~ /1\.8/
+    gem.add_development_dependency 'minitest', '~> 2.6.2'
+  end
 
   gem.add_development_dependency "sinatra", "~> 1.3.1"
   gem.add_dependency 'capybara', '~> 1.1.2'
