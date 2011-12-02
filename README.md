@@ -54,14 +54,28 @@ Using at least ruby 1.9.2:
 
 This is using minispec for testing.
 
-What to do to contribute
-------------------------
 
-Contributions are very welcome! This is a very rough proof-of-concept at this point, so there are many opportunities for improvement. Feel free to:
+How You Can Contribute
+----------------------
 
-* File a github issue with any problems or suggestions <3
-* Fork and send a pull request with failing tests illustrating the bug or currently unsupported use case <3 <3
-* Fork and send a pull request with bugfixes or new features with passing tests! <3 <3 <3
+* [Issues](https://github.com/krainboltgreene/tardis/issues)
+
+Remember that we really want to know if something is wrong, so use the Issue List if you have a problem.
+This is a very rough proof-of-concept at this point, so there are many opportunities for improvement. Feel free to:
+
+* **Fork** the repository
+* **Clone the repository** locally, or **edit via Github**
+* Create a **new branch** using the [Git Flow Standard](http://yakiloo.com/getting-started-git-flow/) conventions
+* Commit **often** and **when important**
+* **DO NOT CHANGE** ANY OF THESE (without making a new branch for *that* change):
+  * `*.gemspec`
+  * `Rakefile`
+  * `.rvmrc`
+  * `.gitignore`
+  * Any part of the git history
+* **Push** your feature or hotfix branch to Github.
+* Make a **Pull Request**
+
 
 Standing on the shoulders of giants
 -----------------------------------
