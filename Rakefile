@@ -13,6 +13,7 @@ rescue Bundler::BundlerError => error
 end
 
 Bundler::GemHelper.install_tasks
+
 desc "Run all of the tests"
 Rake::TestTask.new do |config|
   config.libs << 'test'
@@ -20,3 +21,12 @@ Rake::TestTask.new do |config|
   config.verbose = true
   config.warning = true
 end
+
+desc "Generate all of the docs"
+YARD::Rake::YardocTask.new do |config|
+  config.files = Dir['lib/**/*.rb']
+end
+
+desc 'Default: run tests and generate docs'
+task :default => [ :test, :yard ]
+
