@@ -1,6 +1,8 @@
 #!/usr/bin/env rake
-require "bundler/gem_tasks"
+require 'bundler/gem_tasks'
+require 'rake/clean'
 require 'rake/testtask'
+require 'yard'
 
 desc "Run tests"
 task :test do
