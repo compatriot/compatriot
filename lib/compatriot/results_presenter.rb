@@ -34,6 +34,7 @@ module Compatriot
                 <% browsers.each do |browser| %>
                   <th><%= browser %></th>
                 <% end %>
+                <th>Diff</th>
               </tr>
               <% paths.each do |path| %>
                 <tr>
@@ -45,6 +46,9 @@ module Compatriot
                       <img src="<%= browser %>/<%= results.screenshot_for(browser, path) %>" />
                     </td>
                   <% end %>
+                  <td>
+                    <img src="<%= results.diff_for(path) %>" />
+                  </td>
                 </tr>
               <% end %>
             </table>

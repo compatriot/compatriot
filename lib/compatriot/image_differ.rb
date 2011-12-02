@@ -5,21 +5,12 @@ module Compatriot
   class ImageDiffer
 
     def self.diff(results)
-
       images = results.map{|r| ChunkyPNG::Image.from_file(r) }
-
-      puts "*****************************"
-      puts "#{results.first}"
-      puts "#{results.last}"
-
-      puts "-----------------------------"
-      puts "Same pixels exactly"
-      self.same_pixels_exactly(images, results.first)
-
-      puts "-----------------------------"
-      puts "Color difference"
-      self.color_difference(images, results.first)
-
+      f = self.color_difference(images, results.first)
+      File.join(
+        File.basename(File.dirname(f)),
+        File.basename(f)
+      )
     end
 
     def self.same_pixels_exactly(images, name)
@@ -33,15 +24,16 @@ module Compatriot
         end
       end
 
-      puts "pixels (total):     #{images.first.pixels.length}"
-      puts "pixels changed:     #{diff.length}"
-      puts "pixels changed (%): #{(diff.length.to_f / images.first.pixels.length) * 100}%"
-
+      pixels_total = images.first.pixels.length
+      pixels_changed = diff.length
+      pixels_changed_percentage = (diff.length.to_f / images.first.pixels.length) * 100
 
       x, y = diff.map{ |xy| xy[0] }, diff.map{ |xy| xy[1] }
 
       output.rect(x.min, y.min, x.max, y.max, ChunkyPNG::Color.rgb(0,255,0))
-      output.save("#{name}-same_exactly.png")
+      filename = "#{name}-same_exactly.png"
+      output.save(filename)
+      filename
     end
 
     def self.color_difference(images, name)
@@ -63,12 +55,13 @@ module Compatriot
         end
       end
 
-      puts "pixels (total):     #{images.first.pixels.length}"
-      puts "pixels changed:     #{diff.length}"
-      puts "image changed (%): #{(diff.inject {|sum, value| sum + value} / images.first.pixels.length) * 100}%"
+      pixels_total = images.first.pixels.length
+      pixels_changed = diff.length
+      pixels_changed_percentage = (diff.inject {|sum, value| sum + value} / images.first.pixels.length) * 100
 
-      output.save("#{name}-color_difference.png")
-
+      filename = "#{name}-color_difference.png"
+      output.save(filename)
+      filename
     end
   end
 end

@@ -2,6 +2,7 @@ module Compatriot
   class Results
     def initialize
       @data = {}
+      @diffs = {}
     end
 
     def take_screenshots(params)
@@ -16,8 +17,8 @@ module Compatriot
     end
 
     def compute_diffs
-      paths.each do |path|
-        Compatriot::ImageDiffer.diff(
+      paths.map do |path|
+        @diffs[path] = Compatriot::ImageDiffer.diff(
           browsers.map{|b| File.join(@results_directory, b, screenshot_for(b, path))}
         )
       end
@@ -33,6 +34,10 @@ module Compatriot
 
     def screenshot_for(browser, path)
       @data[browser][path]
+    end
+
+    def diff_for(path)
+      @diffs[path]
     end
   end
 end

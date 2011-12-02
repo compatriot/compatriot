@@ -5,6 +5,7 @@ module Compatriot
     def self.start(app, paths, clock = DateTime)
       runner = new(app, paths, clock)
       runner.take_screenshots
+      runner.compute_diffs
       runner.make_index_page
       runner
     end
