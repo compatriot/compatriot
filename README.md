@@ -1,25 +1,28 @@
 Compatriot
-----------
-**Compat**ibility + **riot**! It's your **friend** that helps you with browser compatibility!
+==========
 
-What this is
-------------
+**Compat**ibility + **riot**! It's the *friend** that helps with browser compatibility!
+This Ruby gem makes cross-browser testing less painful.
+It's goal is to help identify pages that appear to have significant variations when rendered in different browsers.
+You can spend your time fixing the cross-browser problems rather than looking for them.
+Don't let your users find the inconsistencies and get to them first.
 
-This is a Ruby gem to make cross-browser testing less painful. Its goal is to help identify pages that appear to have significant variations when rendered in different browsers. That way, you can spend your time fixing the cross-browser incompatibilities rather than spending your time looking for them, or worse, not looking for them at all and letting your users find them.
 
 What it does now
 ----------------
 
 * Goes to the root path of a Rack app in firefox and chrome and takes a screenshot in each.
-* Stores the screenshot in tmp/results/_timestamp_/_browser_/
-* Creates tmp/results/_timestamp_/index.html that shows thumbnails of each screenshot plus a diff of the two in a table for easy comparison.
+* Stores the screenshot in `tmp/results/_timestamp_/_browser_/`
+* Creates `tmp/results/_timestamp_/index.html` that shows thumbnails of each screenshot plus a diff of the two in a table for easy comparison.
+
 
 What it will do in the future
 -----------------------------
+
 * Have documentation
 * Have a screenshot of sample results in the README
 * Have unit tests and better tests
-* Be on travisci
+* Be on travis-ci
 * Not have a diff that's a different size than the originals
 * Find the largest, darkest contiguous region in the image diff and have a threshold of pass/fail based on that
 * Perform better on the image processing (by sampling/resizing, using oily_png, etc)
@@ -29,21 +32,21 @@ What it will do in the future
 * Allow configuration of which browsers to use
 * Connect to virtual machines so that you don't have to have all the browsers on the machine you're running the tests on
 
-What to do to use it
---------------------
 
-### Firefox
-* Need to have firefox installed
+How To Use
+----------
 
-### Chrome
-* Need chromedriver in your path
-  * From: http://code.google.com/p/chromium/downloads/list
-  * More info: http://code.google.com/p/selenium/wiki/ChromeDriver
+**Requirements**
+1. Ruby v1.9.2
+1. [Firefox]() vX.Y
+2. [chromedriver](http://code.google.com/p/selenium/wiki/ChromeDriver) vX.Y.Z
 
-See examples in the examples directory. When you run a file similar to the examples, it will save results in _current-directory_/tmp/results/_timestamp_/_browser_
+When you run a file similar to the examples it will save results in `_current-directory_/tmp/results/_timestamp_/_browser_`
+
 
 What to do to run its tests
 ---------------------------
+
 Using at least ruby 1.9.2:
 
     bundle install
@@ -51,14 +54,31 @@ Using at least ruby 1.9.2:
 
 This is using minispec for testing.
 
-What to do to contribute
-------------------------
 
-Contributions are very welcome! This is a very rough proof-of-concept at this point, so there are many opportunities for improvement. Feel free to:
+How You Can Contribute
+----------------------
 
-* File a github issue with any problems or suggestions <3
-* Fork and send a pull request with failing tests illustrating the bug or currently unsupported use case <3 <3
-* Fork and send a pull request with bugfixes or new features with passing tests! <3 <3 <3
+* [Documentation](https://github.com/krainboltgreene/tardis/wiki)
+* [Issues](https://github.com/krainboltgreene/tardis/issues)
+
+Feel free to contribute to the documentation wiki if you feel something is lacking.
+Remember that we really want to know if something is wrong, so use the Issue List if you have a problem.
+This is a very rough proof-of-concept at this point, so there are many opportunities for improvement. Feel free to:
+
+* **Fork** the repository
+* **Clone the repository** locally, or **edit via Github**
+* Create a **new branch** using the [Git Flow Standard](http://yakiloo.com/getting-started-git-flow/) conventions
+* Commit **often** and **when important**
+* **DO NOT CHANGE** ANY OF THESE (without making a new branch for *that* change):
+  * `*.gemspec`
+  * `Rakefile`
+  * `.rvmrc`
+  * `.gitignore`
+  * Any part of the git history
+* **Write tests** specifically for the changes you've made, if no test exist
+* **Push** your feature or hotfix branch to Github.
+* Make a **Pull Request**
+
 
 Standing on the shoulders of giants
 -----------------------------------
@@ -69,6 +89,7 @@ Many thanks to the wonderful libraries that make this gem possible:
 * [selenium-webdriver](http://seleniumhq.org/docs/01_introducing_selenium.html#selenium-2-aka-selenium-webdriver)
 * [chunky_png](https://github.com/wvanbergen/chunky_png) (and especially [this blog post about using chunky_png to create image diffs](http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/?utm_source=rubyweekly&utm_medium=email) by Jeff Kreeftmeijer)
 
+
 Contributors
 ------------
 * Carol Nichols ([twitter](http://twitter.com/carols10cents), [website](http://carol-nichols.com))
@@ -76,6 +97,7 @@ Contributors
 * Kurtis Rainbolt-Greene ([twitter](https://twitter.com/krainboltgreene)) ([website](http://kurtisrainboltgreene.name/))
 * Steve Klabnik ([twitter](https://twitter.com/steveklabnik)) ([website](http://www.steveklabnik.com/))
 * You???
+
 
 License
 -------
