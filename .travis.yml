@@ -1,0 +1,4 @@
+before_script: "sh -e /etc/init.d/xvfb start && sudo aptitude -y -q install unzip chromium-browser"
+script: "bundle exec rake travis"
+rvm:
+  - 1.9.2
