@@ -1,9 +1,9 @@
 Compatriot
 ==========
 
-**Compat**ibility + **riot**! It's the *friend** that helps with browser compatibility!
+**Compat**ibility + **riot**! It's the **friend** that helps with browser compatibility!
 This Ruby gem makes cross-browser testing less painful.
-It's goal is to help identify pages that appear to have significant variations when rendered in different browsers.
+Its goal is to help identify pages that appear to have significant variations when rendered in different browsers.
 You can spend your time fixing the cross-browser problems rather than looking for them.
 Don't let your users find the inconsistencies and get to them first.
 
@@ -11,7 +11,7 @@ Don't let your users find the inconsistencies and get to them first.
 What it does now
 ----------------
 
-* Goes to the root path of a Rack app in firefox and chrome and takes a screenshot in each.
+* In firefox and chrome, visits a list of paths to a Rack app and takes a screenshot on each page.
 * Stores the screenshot in `tmp/results/_timestamp_/_browser_/`
 * Creates `tmp/results/_timestamp_/index.html` that shows thumbnails of each screenshot plus a diff of the two in a table for easy comparison.
 
@@ -37,9 +37,10 @@ How To Use
 ----------
 
 **Requirements**
-1. Ruby v1.9.2
-1. [Firefox]() vX.Y
-2. [chromedriver](http://code.google.com/p/selenium/wiki/ChromeDriver) vX.Y.Z
+
+* Ruby v1.9.2
+* [Firefox](http://getfirefox.net)
+* [chromedriver](http://code.google.com/p/selenium/wiki/ChromeDriver)
 
 When you run a file similar to the examples it will save results in `_current-directory_/tmp/results/_timestamp_/_browser_`
 
@@ -58,27 +59,21 @@ This is using minispec for testing.
 How You Can Contribute
 ----------------------
 
-* [Documentation](https://github.com/krainboltgreene/tardis/wiki)
-* [Issues](https://github.com/krainboltgreene/tardis/issues)
+* [Issues](https://github.com/clnclarinet/compatriot/issues)
 
-Feel free to contribute to the documentation wiki if you feel something is lacking.
-Remember that we really want to know if something is wrong, so use the Issue List if you have a problem.
+We'd really like to know if something is wrong, so please file an issue on the Issue List if you have a problem, suggestion, unsupported use case, etc.
+
 This is a very rough proof-of-concept at this point, so there are many opportunities for improvement. Feel free to:
 
 * **Fork** the repository
 * **Clone the repository** locally, or **edit via Github**
-* Create a **new branch** using the [Git Flow Standard](http://yakiloo.com/getting-started-git-flow/) conventions
+* Create a **new branch** with a meaningful name of the issue or feature you're working on
 * Commit **often** and **when important**
-* **DO NOT CHANGE** ANY OF THESE (without making a new branch for *that* change):
-  * `*.gemspec`
-  * `Rakefile`
-  * `.rvmrc`
-  * `.gitignore`
-  * Any part of the git history
-* **Write tests** specifically for the changes you've made, if no test exist
-* **Push** your feature or hotfix branch to Github.
-* Make a **Pull Request**
+* **Write tests** specifically for the changes you've made (unless you're fixing a failing test. Also: just submitting new tests for untested code is a big help too!)
+* **Push** your feature or bug fix branch to your Github fork
+* Make a **Pull Request** from your fork to the main repo
 
+Ryan Bates did an awesome [Railscast on contributing to open source](http://railscasts.com/episodes/300-contributing-to-open-source) that walks through this process, but please let us know if you have any questions or problems.
 
 Standing on the shoulders of giants
 -----------------------------------
