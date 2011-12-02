@@ -23,8 +23,8 @@ describe "Hit a list of paths for this app" do
     Dir.chdir(@current_dir)
   end
 
-  it "takes a screenshot for each path given" do
-    Dir.glob(File.join(@firefox_directory, "*.png")).size.must_equal 2
+  it "takes a screenshot for each path given and diffs them" do
+    Dir.glob(File.join(@firefox_directory, "*.png")).size.must_equal 6
     Dir.glob(File.join(@chrome_directory, "*.png")).size.must_equal 2
   end
 

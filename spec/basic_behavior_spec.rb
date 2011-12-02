@@ -41,8 +41,8 @@ describe "The very basics" do
       assert File.exists?(@chrome_directory)
     end
 
-    it "visits the home page and takes 1 screenshot per browser" do
-      Dir.glob(File.join(@firefox_directory, "*.png")).size.must_equal 1
+    it "visits the home page and takes 1 screenshot per browser and diffs them" do
+      Dir.glob(File.join(@firefox_directory, "*.png")).size.must_equal 2
       Dir.glob(File.join(@chrome_directory, "*.png")).size.must_equal 1
     end
 
