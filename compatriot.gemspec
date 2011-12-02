@@ -4,8 +4,12 @@ require File.expand_path('../lib/compatriot/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Carol Nichols"]
   gem.email         = ["carol.nichols@gmail.com"]
-  gem.description   = %q{Finds likely UI browser cross-compatibility issues.}
-  gem.summary       = %q{Runs a command in multiple browsers using selenium then compares the screenshots and presents those likely to have cross-browser incompatibilities.}
+  gem.description   = 'Finds likely UI browser cross-compatibility issues.'
+  gem.summary       = %q{
+    Runs a command in multiple browsers using selenium then compares the
+    screenshots and presents those likely to have cross-browser incompatibilities.
+  }
+
   gem.homepage      = "https://github.com/clnclarinet/compatriot"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
