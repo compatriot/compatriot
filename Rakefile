@@ -10,4 +10,12 @@ task :test do
     t.test_files = Dir.glob(File.join("spec", "**", "*_spec.rb"))
   end
   task("tests").execute
+begin
+  Bundler.setup :default, :development
+rescue Bundler::BundlerError => error
+  $stderr.puts error.message
+  $stderr.puts "Run `bundle install` to install missing gems"
+  exit error.status_code
 end
+
+Bundler::GemHelper.install_tasks
