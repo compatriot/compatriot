@@ -12,8 +12,9 @@ What it does now
 ----------------
 
 * Goes to the root path of a Rack app in firefox and chrome and takes a screenshot in each.
-* Stores the screenshot in tmp/results/_timestamp_/_browser_/
-* Creates tmp/results/_timestamp_/index.html that shows thumbnails of each screenshot plus a diff of the two in a table for easy comparison.
+* Stores the screenshot in `tmp/results/_timestamp_/_browser_/`
+* Creates `tmp/results/_timestamp_/index.html` that shows thumbnails of each screenshot plus a diff of the two in a table for easy comparison.
+
 
 What it will do in the future
 -----------------------------
