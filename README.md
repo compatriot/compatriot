@@ -12,10 +12,17 @@ What it does now
 
 * Goes to the root path of a Rack app in firefox and chrome and takes a screenshot in each.
 * Stores the screenshot in tmp/results/_timestamp_/_browser_/
-* Creates tmp/results/_timestamp_/index.html that shows thumbnails of each screenshot in a table for easy comparison.
+* Creates tmp/results/_timestamp_/index.html that shows thumbnails of each screenshot plus a diff of the two in a table for easy comparison.
 
 What it will do in the future
 -----------------------------
+* Have documentation
+* Have a screenshot of sample results in the README
+* Have unit tests and better tests
+* Be on travisci
+* Not have a diff that's a different size than the originals
+* Find the largest, darkest contiguous region in the image diff and have a threshold of pass/fail based on that
+* Perform better on the image processing (by sampling/resizing, using oily_png, etc)
 * Given a list of URLs/paths to visit, will take a screenshot of each and display which URL it came from in the index
 * Given a test command that uses capybara, runs those tests and takes screenshots
 * Automatically compare the screenshots across browsers and flags those that are more than some configurable threshold different
