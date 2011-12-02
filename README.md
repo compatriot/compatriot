@@ -31,18 +31,17 @@ What it will do in the future
 * Allow configuration of which browsers to use
 * Connect to virtual machines so that you don't have to have all the browsers on the machine you're running the tests on
 
-What to do to use it
---------------------
 
-### Firefox
-* Need to have firefox installed
+How To Use
+----------
 
-### Chrome
-* Need chromedriver in your path
-  * From: http://code.google.com/p/chromium/downloads/list
-  * More info: http://code.google.com/p/selenium/wiki/ChromeDriver
+**Requirements**
+1. Ruby v1.9.2
+1. [Firefox]() vX.Y
+2. [chromedriver](http://code.google.com/p/selenium/wiki/ChromeDriver) vX.Y.Z
 
-See examples in the examples directory. When you run a file similar to the examples, it will save results in _current-directory_/tmp/results/_timestamp_/_browser_
+When you run a file similar to the examples it will save results in `_current-directory_/tmp/results/_timestamp_/_browser_`
+
 
 What to do to run its tests
 ---------------------------
