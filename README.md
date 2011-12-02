@@ -18,6 +18,7 @@ What it does now
 
 What it will do in the future
 -----------------------------
+
 * Have documentation
 * Have a screenshot of sample results in the README
 * Have unit tests and better tests
@@ -45,6 +46,7 @@ When you run a file similar to the examples it will save results in `_current-di
 
 What to do to run its tests
 ---------------------------
+
 Using at least ruby 1.9.2:
 
     bundle install
@@ -70,11 +72,13 @@ Many thanks to the wonderful libraries that make this gem possible:
 * [selenium-webdriver](http://seleniumhq.org/docs/01_introducing_selenium.html#selenium-2-aka-selenium-webdriver)
 * [chunky_png](https://github.com/wvanbergen/chunky_png) (and especially [this blog post about using chunky_png to create image diffs](http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/?utm_source=rubyweekly&utm_medium=email) by Jeff Kreeftmeijer)
 
+
 Contributors
 ------------
 * Carol Nichols ([twitter](http://twitter.com/carols10cents), [website](http://carol-nichols.com))
 * Andrew Cox ([twitter](https://twitter.com/coxandrew), [website](http://andrewcox.org/))
 * You???
+
 
 License
 -------
