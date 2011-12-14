@@ -3,6 +3,8 @@ $:.unshift(File.expand_path('../lib', File.dirname(__FILE__)))
 require 'rubygems'
 gem 'minitest' # ensures you're using the gem, and not the built in MT
 require 'minitest/autorun'
+require 'mocha'
+
 require 'compatriot'
 
 require_relative "sample_app/test_app"
