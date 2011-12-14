@@ -1,4 +1,4 @@
-require_relative 'spec_helper'
+require_relative '../spec_helper'
 require 'fileutils'
 require 'date'
 require 'nokogiri'
@@ -6,7 +6,7 @@ require 'nokogiri'
 describe "Hit a list of paths for this app" do
   it "takes screenshots, diffs them, and creates an index" do
     root_dir = Dir.getwd
-    Dir.chdir(File.join(File.dirname(__FILE__), 'sample_app'))
+    Dir.chdir(File.join(File.dirname(__FILE__), '..', 'sample_app'))
 
     results_tmp_dir = File.join("tmp", "results")
 
