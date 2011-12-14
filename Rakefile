@@ -9,3 +9,8 @@ task :test do
   end
   task("tests").execute
 end
+
+desc "Run tests"
+task :spec do
+  task("test").execute
+end
