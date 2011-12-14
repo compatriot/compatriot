@@ -5,6 +5,7 @@ describe Compatriot::Runner do
     fake_date      = DateTime.parse("2012-01-01 00:00:00 UTC")
     @fake_date_dir = fake_date.strftime("%Y-%m-%d-%H-%M-%S")
     @fixed_clock   = OpenStruct.new(:now => fake_date)
+    @results_dir_name = File.join("tmp", "results", @fake_date_dir)
   end
 
   describe "self#start" do
@@ -23,28 +24,31 @@ describe Compatriot::Runner do
 
   describe "#take_screenshots" do
     it "calls take_screenshots for each browser" do
-      results = stub
-      Compatriot::Results.stubs(:new).returns(results)
+      firefox_browser = stub
+      chrome_browser  = stub
 
-      app = stub
+      Compatriot::Browser.expects(:new).with(
+        :name => "firefox",
+        :screenshot_directory => @results_dir_name
+      ).returns(firefox_browser)
+      Compatriot::Browser.expects(:new).with(
+        :name => "chrome",
+        :screenshot_directory => @results_dir_name
+      ).returns(chrome_browser)
+
+      app   = stub
       paths = stub
-      dir = "somedate"
 
-      runner = Compatriot::Runner.new(app, paths, stub)
-      runner.stubs(:results_directory).returns(dir)
+      firefox_browser.expects(:take_screenshots).with(
+        :app   => app,
+        :paths => paths
+      )
+      chrome_browser.expects(:take_screenshots).with(
+        :app   => app,
+        :paths => paths
+      )
 
-      results.expects(:take_screenshots).with(
-        :browser => "firefox",
-        :app     => app,
-        :paths   => paths,
-        :results_directory => dir
-      )
-      results.expects(:take_screenshots).with(
-        :browser => "chrome",
-        :app     => app,
-        :paths   => paths,
-        :results_directory => dir
-      )
+      runner = Compatriot::Runner.new(app, paths, @fixed_clock)
 
       runner.take_screenshots
     end
@@ -53,10 +57,9 @@ describe Compatriot::Runner do
 
   describe "#results_directory" do
     it "names a results directory in tmp/results based on the clock" do
-      results_dir_name = File.join("tmp", "results", @fake_date_dir)
       runner = Compatriot::Runner.new(TestApp, ["/"], @fixed_clock)
 
-      runner.results_directory.must_equal(results_dir_name)
+      runner.results_directory.must_equal(@results_dir_name)
     end
   end
 

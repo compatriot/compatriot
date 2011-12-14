@@ -13,43 +13,60 @@ module Compatriot
 
     BROWSERS = ["firefox", "chrome"]
 
-    attr_reader :app, :results
+    attr_reader :app, :results_directory
 
     def initialize(app, paths, clock)
       @app   = app
       @paths = paths
       @clock = clock
-      @results = Compatriot::Results.new
+      @browsers = {}
+
+      timestamp = @clock.now.strftime("%Y-%m-%d-%H-%M-%S")
+      @results_directory = File.join("tmp", "results", timestamp)
+
+      BROWSERS.each do |b|
+        @browsers[b] = Compatriot::Browser.new(
+          :name => b,
+          :screenshot_directory => @results_directory
+        )
+      end
+      @diffs = {}
     end
 
     def take_screenshots
-      BROWSERS.each do |b|
-        @results.take_screenshots(
-          :browser           => b,
-          :app               => @app,
-          :paths             => @paths,
-          :results_directory => results_directory
+      @browsers.each do |name, browser_object|
+        browser_object.take_screenshots(
+          :app   => @app,
+          :paths => @paths
         )
       end
     end
 
     def compute_diffs
-      @results.compute_diffs
+      @paths.map do |path|
+        @diffs[path] = Compatriot::ImageDiffer.diff(
+          @browsers.map do |name, browser_object|
+            File.join(
+              @results_directory,
+              name,
+              browser_object.screenshot_for(path)
+            )
+          end
+        )
+      end
     end
 
     def make_index_page
-      presenter = Compatriot::ResultsPresenter.new(results_directory)
-      presenter.make_index_page(@results)
+      presenter = Compatriot::ResultsPresenter.new(@results_directory)
+      presenter.make_index_page(
+        :paths => @paths,
+        :browsers => @browsers,
+        :diffs => @diffs
+      )
     end
 
     def create_results_directory
-      FileUtils.mkdir_p(results_directory)
-    end
-
-    def results_directory
-      return @results_directory if @results_directory
-      timestamp = @clock.now.strftime("%Y-%m-%d-%H-%M-%S")
-      File.join("tmp", "results", timestamp)
+      FileUtils.mkdir_p(@results_directory)
     end
   end
 end

@@ -5,11 +5,14 @@ module Compatriot
   class Browser
     include Capybara::DSL
 
-    def initialize(browser_name, results_directory)
-      @results_directory   = results_directory
-      @browser_name        = browser_name
-      @browser_selenium_id = translate_to_selenium(@browser_name)
+    attr_reader :screenshot_locations
+
+    def initialize(params = {})
+      @screenshot_directory = params[:screenshot_directory]
+      @browser_name         = params[:name]
+      @browser_selenium_id  = translate_to_selenium(@browser_name)
       @file_id = 1
+      @screenshot_locations = {}
     end
 
     def initialize_capybara(app)
@@ -21,15 +24,18 @@ module Compatriot
       Capybara.app = app
     end
 
-    def take_screenshots(paths)
-      results = {}
-      paths.each do |path|
+    def take_screenshots(params = {})
+      initialize_capybara(params[:app])
+      params[:paths].each do |path|
         visit path
-        results[path] = screenshot
+        @screenshot_locations[path] = screenshot
       end
       # Reset the selenium session to avoid timeout errors
       Capybara.send(:session_pool).delete_if { |key, value| key =~ /selenium/i }
-      results
+    end
+
+    def screenshot_for(path)
+      @screenshot_locations[path]
     end
 
     def screenshot
@@ -42,7 +48,7 @@ module Compatriot
 
     def screenshot_path
       return @screenshot_path if @screenshot_path
-      @screenshot_path = "#{@results_directory}/#{@browser_name}"
+      @screenshot_path = "#{@screenshot_directory}/#{@browser_name}"
       FileUtils.mkdir_p(@screenshot_path)
       @screenshot_path
     end
