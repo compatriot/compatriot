@@ -4,6 +4,7 @@ module Compatriot
   class Runner
     def self.start(app, paths, clock = DateTime)
       runner = new(app, paths, clock)
+      runner.create_results_directory
       runner.take_screenshots
       runner.compute_diffs
       runner.make_index_page
@@ -41,12 +42,14 @@ module Compatriot
       presenter.make_index_page(@results)
     end
 
+    def create_results_directory
+      FileUtils.mkdir_p(results_directory)
+    end
+
     def results_directory
       return @results_directory if @results_directory
       timestamp = @clock.now.strftime("%Y-%m-%d-%H-%M-%S")
-      directory_name = "tmp/results/#{timestamp}"
-      FileUtils.mkdir_p(directory_name)
-      @results_directory = directory_name
+      File.join("tmp", "results", timestamp)
     end
   end
 end

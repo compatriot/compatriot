@@ -20,16 +20,6 @@ describe "The very basics" do
     Dir.chdir(@current_dir)
   end
 
-  it "holds onto the app we give it" do
-    x = Compatriot::Runner.new(TestApp, ["/"], @fixed_clock)
-    x.app.must_equal(TestApp)
-  end
-
-  it "names a results directory based on the clock" do
-    x = Compatriot::Runner.new(TestApp, ["/"], @fixed_clock)
-    x.results_directory.must_equal(@results_directory)
-  end
-
   describe "self#start" do
     before do
       Compatriot::Runner.start(TestApp, ["/"], @fixed_clock)
