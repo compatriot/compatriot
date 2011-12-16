@@ -9,10 +9,10 @@ module Compatriot
     def make_index_page(params = {})
       index_page_file = File.join(@results_directory, "index.html")
 
-      b = binding
-      paths = params[:paths]
+      b        = binding
+      paths    = params[:paths]
       browsers = params[:browsers]
-      diffs = params[:diffs]
+      diffs    = params[:diffs]
 
       html = ERB.new <<-EOF
         <html>
@@ -32,8 +32,8 @@ module Compatriot
             <table>
               <tr>
                 <th>Path</th>
-                <% browsers.each do |name, browser| %>
-                  <th><%= name %></th>
+                <% browsers.each do |browser| %>
+                  <th><%= browser.name %></th>
                 <% end %>
                 <th>Diff</th>
               </tr>
@@ -42,9 +42,9 @@ module Compatriot
                   <td>
                     <%= path %>
                   </td>
-                  <% browsers.each do |name, browser| %>
+                  <% browsers.each do |browser| %>
                     <td>
-                      <img src="<%= name %>/<%= browser.screenshot_for(path) %>" />
+                      <img src="<%= browser.name %>/<%= browser.screenshot_for(path) %>" />
                     </td>
                   <% end %>
                   <td>

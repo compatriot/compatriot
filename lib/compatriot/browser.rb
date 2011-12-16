@@ -6,30 +6,27 @@ module Compatriot
     include Capybara::DSL
 
     def self.create_browsers(params = {})
-      browsers = {}
-      params[:browser_names].each do |b|
-        browsers[b] = Compatriot::Browser.new(
+      params[:browser_names].collect do |b|
+        Compatriot::Browser.new(
           :name => b,
           :screenshot_directory => params[:results_directory]
         )
       end
-      browsers
     end
 
-    attr_reader :screenshot_locations
+    attr_reader :screenshot_locations, :name
 
     def initialize(params = {})
       @screenshot_directory = params[:screenshot_directory]
-      @browser_name         = params[:name]
-      @browser_selenium_id  = translate_to_selenium(@browser_name)
-      @file_id = 1
+      @name                 = params[:name]
+      @file_id              = 1
       @screenshot_locations = {}
     end
 
     def initialize_capybara(app)
-      driver = "selenium_#{@browser_name}".to_sym
+      driver = "selenium_#{@name}".to_sym
       Capybara.register_driver driver do |a|
-        Capybara::Selenium::Driver.new(a, :browser => @browser_selenium_id)
+        Capybara::Selenium::Driver.new(a, :browser => @name.to_sym)
       end
       Capybara.default_driver = driver
       Capybara.app = app
@@ -59,15 +56,9 @@ module Compatriot
 
     def screenshot_path
       return @screenshot_path if @screenshot_path
-      @screenshot_path = "#{@screenshot_directory}/#{@browser_name}"
+      @screenshot_path = "#{@screenshot_directory}/#{@name}"
       FileUtils.mkdir_p(@screenshot_path)
       @screenshot_path
-    end
-
-    private
-
-    def translate_to_selenium(browser_name)
-      browser_name.to_sym
     end
   end
 end

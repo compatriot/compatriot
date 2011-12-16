@@ -27,14 +27,10 @@ describe Compatriot::Runner do
       firefox_browser = stub
       chrome_browser  = stub
 
-      Compatriot::Browser.expects(:new).with(
-        :name => "firefox",
-        :screenshot_directory => @results_dir_name
-      ).returns(firefox_browser)
-      Compatriot::Browser.expects(:new).with(
-        :name => "chrome",
-        :screenshot_directory => @results_dir_name
-      ).returns(chrome_browser)
+      Compatriot::Browser.expects(:create_browsers).returns([
+        firefox_browser,
+        chrome_browser
+      ])
 
       app   = stub
       paths = stub

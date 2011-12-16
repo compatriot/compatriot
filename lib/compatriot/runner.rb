@@ -32,7 +32,7 @@ module Compatriot
     end
 
     def take_screenshots
-      @browsers.each do |name, browser_object|
+      @browsers.each do |browser_object|
         browser_object.take_screenshots(
           :app   => @app,
           :paths => @paths
@@ -43,10 +43,10 @@ module Compatriot
     def compute_diffs
       @paths.map do |path|
         @diffs[path] = Compatriot::ImageDiffer.diff(
-          @browsers.map do |name, browser_object|
+          @browsers.map do |browser_object|
             File.join(
               @results_directory,
-              name,
+              browser_object.name,
               browser_object.screenshot_for(path)
             )
           end
