@@ -19,17 +19,15 @@ module Compatriot
       @app   = app
       @paths = paths
       @clock = clock
-      @browsers = {}
 
       timestamp = @clock.now.strftime("%Y-%m-%d-%H-%M-%S")
       @results_directory = File.join("tmp", "results", timestamp)
 
-      BROWSERS.each do |b|
-        @browsers[b] = Compatriot::Browser.new(
-          :name => b,
-          :screenshot_directory => @results_directory
-        )
-      end
+      @browsers = Compatriot::Browser.create_browsers(
+        :browser_names     => BROWSERS,
+        :results_directory => @results_directory
+      )
+
       @diffs = {}
     end
 
@@ -59,9 +57,9 @@ module Compatriot
     def make_index_page
       presenter = Compatriot::ResultsPresenter.new(@results_directory)
       presenter.make_index_page(
-        :paths => @paths,
+        :paths    => @paths,
         :browsers => @browsers,
-        :diffs => @diffs
+        :diffs    => @diffs
       )
     end
 

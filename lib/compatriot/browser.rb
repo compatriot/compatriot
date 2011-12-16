@@ -5,6 +5,17 @@ module Compatriot
   class Browser
     include Capybara::DSL
 
+    def self.create_browsers(params = {})
+      browsers = {}
+      params[:browser_names].each do |b|
+        browsers[b] = Compatriot::Browser.new(
+          :name => b,
+          :screenshot_directory => params[:results_directory]
+        )
+      end
+      browsers
+    end
+
     attr_reader :screenshot_locations
 
     def initialize(params = {})
