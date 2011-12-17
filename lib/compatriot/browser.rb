@@ -14,13 +14,15 @@ module Compatriot
       end
     end
 
-    attr_reader :screenshot_locations, :name
+    attr_reader :name, :screenshot_path
 
     def initialize(params = {})
-      @screenshot_directory = params[:screenshot_directory]
       @name                 = params[:name]
+      @screenshot_path      = File.join(params[:screenshot_directory], @name)
       @file_id              = 1
       @screenshot_locations = {}
+
+      create_screenshot_path
     end
 
     def initialize_capybara(app)
@@ -46,19 +48,17 @@ module Compatriot
       @screenshot_locations[path]
     end
 
+    private
     def screenshot
       file_base_name = "#{@file_id}.png"
       @file_id += 1
-      filepath = File.join(screenshot_path, file_base_name)
+      filepath = File.join(@screenshot_path, file_base_name)
       Capybara.page.driver.browser.save_screenshot(filepath)
       file_base_name
     end
 
-    def screenshot_path
-      return @screenshot_path if @screenshot_path
-      @screenshot_path = "#{@screenshot_directory}/#{@name}"
+    def create_screenshot_path
       FileUtils.mkdir_p(@screenshot_path)
-      @screenshot_path
     end
   end
 end
