@@ -4,18 +4,16 @@ include ChunkyPNG::Color
 module Compatriot
   class ImageDiffer
 
-    def self.diff(results)
+    def self.diff(results, strategy = :color_difference)
       images = results.map{|r| ChunkyPNG::Image.from_file(r) }
-      f = self.color_difference(images, results.first)
-      File.join(
-        File.basename(File.dirname(f)),
-        File.basename(f)
-      )
+      self.send(strategy, images, results.first)
     end
 
     def self.same_pixels_exactly(images, name)
-      output = ChunkyPNG::Image.new(images.first.width, images.last.width, WHITE)
+      output = ChunkyPNG::Image.new(images.first.width, images.first.height, WHITE)
       diff = []
+
+      # each_pixel(images.first, images.last) do |x, y|
 
       images.first.height.times do |y|
         images.first.row(y).each_with_index do |pixel, x|
@@ -33,11 +31,14 @@ module Compatriot
       output.rect(x.min, y.min, x.max, y.max, ChunkyPNG::Color.rgb(0,255,0))
       filename = "#{name}-same_exactly.png"
       output.save(filename)
-      filename
+      File.join(
+        File.basename(File.dirname(filename)),
+        File.basename(filename)
+      )
     end
 
     def self.color_difference(images, name)
-      output = ChunkyPNG::Image.new(images.first.width, images.last.width, WHITE)
+      output = ChunkyPNG::Image.new(images.first.width, images.first.height, WHITE)
       diff = []
 
       images.first.height.times do |y|
@@ -61,7 +62,10 @@ module Compatriot
 
       filename = "#{name}-color_difference.png"
       output.save(filename)
-      filename
+      File.join(
+        File.basename(File.dirname(filename)),
+        File.basename(filename)
+      )
     end
   end
 end
