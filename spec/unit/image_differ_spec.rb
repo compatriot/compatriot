@@ -25,8 +25,9 @@ describe Compatriot::ImageDiffer do
       ChunkyPNG::Image.expects(:new).with(1, 2, ChunkyPNG::Image::WHITE)
 
       image1 = stub(:width => 1, :height => 2)
+      image2 = stub(:width => 3, :height => 4)
 
-      Compatriot::ImageDiffer.color_difference([image1], stub)
+      Compatriot::ImageDiffer.color_difference(image1, image2, stub)
     end
   end
 end

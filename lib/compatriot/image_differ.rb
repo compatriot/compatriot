@@ -6,25 +6,25 @@ module Compatriot
 
     def self.diff(results, strategy = :color_difference)
       images = results.map{|r| ChunkyPNG::Image.from_file(r) }
-      self.send(strategy, images, results.first)
+      self.send(strategy, images.first, images.last, results.first)
     end
 
-    def self.same_pixels_exactly(images, name)
-      output = ChunkyPNG::Image.new(images.first.width, images.first.height, WHITE)
+    def self.same_pixels_exactly(image1, image2, name)
+      output = ChunkyPNG::Image.new(image1.width, image2.height, WHITE)
       diff = []
 
       # each_pixel(images.first, images.last) do |x, y|
 
-      images.first.height.times do |y|
-        images.first.row(y).each_with_index do |pixel, x|
+      image1.height.times do |y|
+        image1.row(y).each_with_index do |pixel, x|
           output[x,y] = pixel
-          diff << [x,y] unless pixel == images.last[x,y]
+          diff << [x,y] unless pixel == image2[x,y]
         end
       end
 
-      pixels_total = images.first.pixels.length
+      pixels_total = image1.pixels.length
       pixels_changed = diff.length
-      pixels_changed_percentage = (diff.length.to_f / images.first.pixels.length) * 100
+      pixels_changed_percentage = (diff.length.to_f / image1.pixels.length) * 100
 
       x, y = diff.map{ |xy| xy[0] }, diff.map{ |xy| xy[1] }
 
@@ -37,17 +37,17 @@ module Compatriot
       )
     end
 
-    def self.color_difference(images, name)
-      output = ChunkyPNG::Image.new(images.first.width, images.first.height, WHITE)
+    def self.color_difference(image1, image2, name)
+      output = ChunkyPNG::Image.new(image1.width, image1.height, WHITE)
       diff = []
 
-      images.first.height.times do |y|
-        images.first.row(y).each_with_index do |pixel, x|
-          unless pixel == images.last[x,y]
+      image1.height.times do |y|
+        image1.row(y).each_with_index do |pixel, x|
+          unless pixel == image2[x,y]
             score = Math.sqrt(
-              (r(images.last[x,y]) - r(pixel)) ** 2 +
-              (g(images.last[x,y]) - g(pixel)) ** 2 +
-              (b(images.last[x,y]) - b(pixel)) ** 2
+              (r(image2[x,y]) - r(pixel)) ** 2 +
+              (g(image2[x,y]) - g(pixel)) ** 2 +
+              (b(image2[x,y]) - b(pixel)) ** 2
             ) / Math.sqrt(MAX ** 2 * 3)
 
             output[x,y] = grayscale(MAX - (score * MAX).round)
@@ -56,9 +56,9 @@ module Compatriot
         end
       end
 
-      pixels_total = images.first.pixels.length
+      pixels_total = image1.pixels.length
       pixels_changed = diff.length
-      pixels_changed_percentage = (diff.inject {|sum, value| sum + value} / images.first.pixels.length) * 100
+      pixels_changed_percentage = (diff.inject {|sum, value| sum + value} / image1.pixels.length) * 100
 
       filename = "#{name}-color_difference.png"
       output.save(filename)
