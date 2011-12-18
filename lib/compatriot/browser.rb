@@ -19,7 +19,6 @@ module Compatriot
     def initialize(params = {})
       @name                 = params[:name]
       @screenshot_path      = File.join(params[:screenshot_directory], @name)
-      @file_id              = 1
       @screenshot_locations = {}
 
       create_screenshot_path
@@ -36,10 +35,8 @@ module Compatriot
 
     def take_screenshots(params = {})
       initialize_capybara(params[:app])
-      params[:paths].each do |path|
-        visit path
-        @screenshot_locations[path] = screenshot
-      end
+      params[:paths].map { |path| take_screenshot(path) }
+
       # Reset the selenium session to avoid timeout errors
       Capybara.send(:session_pool).delete_if { |key, value| key =~ /selenium/i }
     end
@@ -48,13 +45,19 @@ module Compatriot
       @screenshot_locations[path]
     end
 
+    def take_screenshot(path)
+      visit path
+      filename = next_filename
+      Capybara.page.driver.browser.save_screenshot(filename)
+      @screenshot_locations[path] = filename
+    end
+
     private
-    def screenshot
+
+    def next_filename
+      @file_id = (@file_id && @file_id + 1) || 1
       file_base_name = "#{@file_id}.png"
-      @file_id += 1
-      filepath = File.join(@screenshot_path, file_base_name)
-      Capybara.page.driver.browser.save_screenshot(filepath)
-      file_base_name
+      File.join(@screenshot_path, file_base_name)
     end
 
     def create_screenshot_path

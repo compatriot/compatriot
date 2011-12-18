@@ -28,15 +28,124 @@ describe Compatriot::Browser do
   end
 
   describe "initialize_capybara" do
+    before do
+      @b = Compatriot::Browser.new(
+        :name => "foo",
+        :screenshot_directory => "bar"
+      )
+    end
+
+    it "registers a new driver" do
+      Capybara.expects(:register_driver).with(:selenium_foo)
+
+      @b.initialize_capybara(stub)
+    end
+
+    it "sets this driver as the default" do
+      Capybara.expects(:default_driver=).with(:selenium_foo)
+
+      @b.initialize_capybara(stub)
+    end
+
+    it "sets the Capybara app" do
+      app = stub
+      Capybara.expects(:app=).with(app)
+
+      @b.initialize_capybara(app)
+    end
   end
 
   describe "take_screenshots" do
+    before do
+      @b = Compatriot::Browser.new(
+        :name => "foo",
+        :screenshot_directory => "bar"
+      )
+    end
+
+    it "calls initialize_capybara once and take_screenshot for each path" do
+      app = stub
+      @b.expects(:initialize_capybara).with(app)
+
+      @b.expects(:take_screenshot).with("/")
+      @b.expects(:take_screenshot).with("/contact")
+
+      @b.take_screenshots(
+        :app => app,
+        :paths => ["/", "/contact"]
+      )
+    end
+  end
+
+  describe "take_screenshot" do
+    before do
+      @b = Compatriot::Browser.new(
+        :name => "foo",
+        :screenshot_directory => "bar"
+      )
+    end
+
+    it "visits the path" do
+      @b.expects(:visit).with("/some_page")
+
+      capybara_browser = stub
+      capybara_browser.stubs(:save_screenshot)
+      Capybara.page.driver.stubs(:browser).returns(capybara_browser)
+
+      @b.take_screenshot("/some_page")
+    end
+
+    it "tells capybara to take a screenshot" do
+      @b.stubs(:visit)
+
+      @b.stubs(:next_filename).returns("/where_to_save")
+      capybara_browser = stub
+      capybara_browser.expects(:save_screenshot).with("/where_to_save")
+      Capybara.page.driver.stubs(:browser).returns(capybara_browser)
+
+      @b.take_screenshot("/some_page")
+    end
+
+    it "increments the filenames" do
+      @b.stubs(:visit)
+
+      capybara_browser = stub
+      capybara_browser.stubs(:save_screenshot)
+      Capybara.page.driver.stubs(:browser).returns(capybara_browser)
+
+      @b.take_screenshot("/some_page")
+      @b.take_screenshot("/some_other_page")
+
+      @b.screenshot_for("/some_page").must_match(/\/1.png$/)
+      @b.screenshot_for("/some_other_page").must_match(/\/2.png$/)
+    end
+
   end
 
   describe "screenshot_for" do
-  end
+    before do
+      @b = Compatriot::Browser.new(
+        :name => "foo",
+        :screenshot_directory => "bar"
+      )
+    end
 
-  describe "screenshot" do
+    it "returns nil if there is no screenshot for that path" do
+      @b.screenshot_for("/whatever").must_equal(nil)
+    end
+
+    it "stores the screenshot location by path" do
+      @b.stubs(:visit)
+      @b.stubs(:next_filename).returns("/some/location.png")
+
+      capybara_browser = stub
+      capybara_browser.stubs(:save_screenshot)
+      Capybara.page.driver.stubs(:browser).returns(capybara_browser)
+
+      @b.take_screenshot("/")
+
+      @b.screenshot_for("/").must_equal("/some/location.png")
+    end
   end
 
   describe "screenshot_path" do

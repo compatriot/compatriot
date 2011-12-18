@@ -44,11 +44,7 @@ module Compatriot
       @paths.map do |path|
         @diffs[path] = Compatriot::ImageDiffer.diff(
           @browsers.map do |browser_object|
-            File.join(
-              @results_directory,
-              browser_object.name,
-              browser_object.screenshot_for(path)
-            )
+            browser_object.screenshot_for(path)
           end
         )
       end
