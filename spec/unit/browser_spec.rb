@@ -29,6 +29,7 @@ describe Compatriot::Browser do
 
   describe "initialize_capybara" do
     before do
+      Compatriot::Browser.any_instance.stubs(:create_screenshot_path)
       @b = Compatriot::Browser.new(
         :name => "foo",
         :screenshot_directory => "bar"
@@ -57,6 +58,7 @@ describe Compatriot::Browser do
 
   describe "take_screenshots" do
     before do
+      Compatriot::Browser.any_instance.stubs(:create_screenshot_path)
       @b = Compatriot::Browser.new(
         :name => "foo",
         :screenshot_directory => "bar"
@@ -79,6 +81,7 @@ describe Compatriot::Browser do
 
   describe "take_screenshot" do
     before do
+      Compatriot::Browser.any_instance.stubs(:create_screenshot_path)
       @b = Compatriot::Browser.new(
         :name => "foo",
         :screenshot_directory => "bar"
@@ -124,6 +127,7 @@ describe Compatriot::Browser do
 
   describe "relative_screenshot_for" do
     before do
+      Compatriot::Browser.any_instance.stubs(:create_screenshot_path)
       @b = Compatriot::Browser.new(
         :name => "foo",
         :screenshot_directory => "bar"

@@ -2,6 +2,8 @@ require_relative '../spec_helper'
 
 describe Compatriot::Runner do
   before do
+    Compatriot::Runner.any_instance.stubs(:create_results_directory)
+    Compatriot::Browser.any_instance.stubs(:create_screenshot_path)
     fake_date      = DateTime.parse("2012-01-01 00:00:00 UTC")
     @fake_date_dir = fake_date.strftime("%Y-%m-%d-%H-%M-%S")
     @fixed_clock   = OpenStruct.new(:now => fake_date)
