@@ -44,7 +44,7 @@ module Compatriot
                   </td>
                   <% browsers.each do |browser| %>
                     <td>
-                      <img src="<%= browser.name %>/<%= browser.screenshot_for(path) %>" />
+                      <img src="<%= browser.relative_screenshot_for(path) %>" />
                     </td>
                   <% end %>
                   <td>

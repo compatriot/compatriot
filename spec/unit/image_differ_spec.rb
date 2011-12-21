@@ -6,8 +6,8 @@ describe Compatriot::ImageDiffer do
       d = Compatriot::ImageDiffer.new(
         :paths => ["/home"],
         :browsers => [
-          stub(:screenshot_for => "1.png"),
-          stub(:screenshot_for => "2.png")
+          stub(:absolute_screenshot_for => "1.png"),
+          stub(:absolute_screenshot_for => "2.png")
         ]
       )
       d.expects(:diff).with(["1.png", "2.png"]).returns("diff.png")

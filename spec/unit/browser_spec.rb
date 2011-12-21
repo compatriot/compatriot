@@ -100,7 +100,7 @@ describe Compatriot::Browser do
 
       @b.stubs(:next_filename).returns("/where_to_save")
       capybara_browser = stub
-      capybara_browser.expects(:save_screenshot).with("/where_to_save")
+      capybara_browser.expects(:save_screenshot).with("bar/foo/where_to_save")
       Capybara.page.driver.stubs(:browser).returns(capybara_browser)
 
       @b.take_screenshot("/some_page")
@@ -116,13 +116,13 @@ describe Compatriot::Browser do
       @b.take_screenshot("/some_page")
       @b.take_screenshot("/some_other_page")
 
-      @b.screenshot_for("/some_page").must_match(/\/1.png$/)
-      @b.screenshot_for("/some_other_page").must_match(/\/2.png$/)
+      @b.relative_screenshot_for("/some_page").must_equal("foo/1.png")
+      @b.relative_screenshot_for("/some_other_page").must_equal("foo/2.png")
     end
 
   end
 
-  describe "screenshot_for" do
+  describe "relative_screenshot_for" do
     before do
       @b = Compatriot::Browser.new(
         :name => "foo",
@@ -131,7 +131,7 @@ describe Compatriot::Browser do
     end
 
     it "returns nil if there is no screenshot for that path" do
-      @b.screenshot_for("/whatever").must_equal(nil)
+      @b.relative_screenshot_for("/whatever").must_equal(nil)
     end
 
     it "stores the screenshot location by path" do
@@ -144,7 +144,7 @@ describe Compatriot::Browser do
 
       @b.take_screenshot("/")
 
-      @b.screenshot_for("/").must_equal("/some/location.png")
+      @b.relative_screenshot_for("/").must_equal("foo/some/location.png")
     end
   end
 

@@ -15,7 +15,7 @@ module Compatriot
 
     def compute!
       @paths.map do |path|
-        images_to_diff = @browsers.map { |b| b.screenshot_for(path) }
+        images_to_diff = @browsers.map { |b| b.absolute_screenshot_for(path) }
         @diffs[path] = diff(images_to_diff)
       end
     end
