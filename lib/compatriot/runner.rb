@@ -27,8 +27,6 @@ module Compatriot
         :browser_names     => BROWSERS,
         :results_directory => @results_directory
       )
-
-      @diffs = {}
     end
 
     def take_screenshots
@@ -41,13 +39,12 @@ module Compatriot
     end
 
     def compute_diffs
-      @paths.map do |path|
-        @diffs[path] = Compatriot::ImageDiffer.diff(
-          @browsers.map do |browser_object|
-            browser_object.screenshot_for(path)
-          end
-        )
-      end
+      @differ = Compatriot::ImageDiffer.new(
+        :paths    => @paths,
+        :browsers => @browsers,
+        :strategy => :color_difference
+      )
+      @differ.compute!
     end
 
     def make_index_page
@@ -55,7 +52,7 @@ module Compatriot
       presenter.make_index_page(
         :paths    => @paths,
         :browsers => @browsers,
-        :diffs    => @diffs
+        :differ   => @differ
       )
     end
 

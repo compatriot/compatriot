@@ -4,22 +4,36 @@ include ChunkyPNG::Color
 module Compatriot
   class ImageDiffer
 
-    def self.diff(results, strategy = :color_difference)
-      images = results.map{|r| ChunkyPNG::Image.from_file(r) }
-      self.send(strategy, images.first, images.last, results.first)
+    attr_reader :diffs
+
+    def initialize(params = {})
+      @paths    = params[:paths]
+      @browsers = params[:browsers]
+      @strategy = params[:strategy] || :color_difference
+      @diffs    = {}
     end
 
-    def self.same_pixels_exactly(image1, image2, name)
+    def compute!
+      @paths.map do |path|
+        images_to_diff = @browsers.map { |b| b.screenshot_for(path) }
+        @diffs[path] = diff(images_to_diff)
+      end
+    end
+
+    def diff(results)
+      images = results.map{|r| ChunkyPNG::Image.from_file(r) }
+      self.send(@strategy, images.first, images.last, results.first)
+    end
+
+    def same_pixels_exactly(image1, image2, name)
       output = ChunkyPNG::Image.new(image1.width, image2.height, WHITE)
       diff = []
 
-      # each_pixel(images.first, images.last) do |x, y|
-
-      image1.height.times do |y|
-        image1.row(y).each_with_index do |pixel, x|
-          output[x,y] = pixel
-          diff << [x,y] unless pixel == image2[x,y]
-        end
+      each_pixel(image1) do |x, y|
+        pixel1 = image1[x, y]
+        pixel2 = image2[x, y]
+        output[x,y] = pixel1
+        diff << [x,y] unless pixel1 == pixel2
       end
 
       pixels_total = image1.pixels.length
@@ -37,28 +51,18 @@ module Compatriot
       )
     end
 
-    def self.color_difference(image1, image2, name)
+    def color_difference(image1, image2, name)
       output = ChunkyPNG::Image.new(image1.width, image1.height, WHITE)
       diff = []
 
-      image1.height.times do |y|
-        image1.row(y).each_with_index do |pixel, x|
-          unless pixel == image2[x,y]
-            score = Math.sqrt(
-              (r(image2[x,y]) - r(pixel)) ** 2 +
-              (g(image2[x,y]) - g(pixel)) ** 2 +
-              (b(image2[x,y]) - b(pixel)) ** 2
-            ) / Math.sqrt(MAX ** 2 * 3)
-
-            output[x,y] = grayscale(MAX - (score * MAX).round)
-            diff << score
-          end
+      each_pixel(image1) do |x, y|
+        pixel1 = image1[x,y]
+        pixel2 = image2[x,y]
+        unless pixel1 == pixel2
+          output[x,y], score = color_difference_of_pixels(pixel1, pixel2)
+          diff << score
         end
       end
-
-      pixels_total = image1.pixels.length
-      pixels_changed = diff.length
-      pixels_changed_percentage = (diff.inject {|sum, value| sum + value} / image1.pixels.length) * 100
 
       filename = "#{name}-color_difference.png"
       output.save(filename)
@@ -66,6 +70,31 @@ module Compatriot
         File.basename(File.dirname(filename)),
         File.basename(filename)
       )
+    end
+
+    def color_difference_of_pixels(pixel1, pixel2)
+      score = Math.sqrt(
+        (r(pixel2) - r(pixel1)) ** 2 +
+        (g(pixel2) - g(pixel1)) ** 2 +
+        (b(pixel2) - b(pixel1)) ** 2
+      ) / Math.sqrt(MAX ** 2 * 3)
+
+      [grayscale(MAX - (score * MAX).round), score]
+    end
+
+    # Not called anywhere
+    def color_difference_total_score
+      pixels_total = image1.width * image1.height
+      pixels_changed = diff.length
+      pixels_changed_percentage = (diff.inject {|sum, value| sum + value} / pixels_total) * 100
+    end
+
+    def each_pixel(image)
+      image.width.times do |x|
+        image.height.times do |y|
+          yield(x, y)
+        end
+      end
     end
   end
 end

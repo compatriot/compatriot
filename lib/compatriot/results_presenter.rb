@@ -12,7 +12,7 @@ module Compatriot
       b        = binding
       paths    = params[:paths]
       browsers = params[:browsers]
-      diffs    = params[:diffs]
+      differ   = params[:differ]
 
       html = ERB.new <<-EOF
         <html>
@@ -48,7 +48,7 @@ module Compatriot
                     </td>
                   <% end %>
                   <td>
-                    <img src="<%= diffs[path] %>" />
+                    <img src="<%= differ.diffs[path] %>" />
                   </td>
                 </tr>
               <% end %>
