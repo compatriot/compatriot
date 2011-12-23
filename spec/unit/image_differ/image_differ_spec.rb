@@ -3,6 +3,8 @@ require_relative '../../spec_helper'
 describe Compatriot::ImageDiffer do
   describe "compute!" do
     it "diffs each set of images and stores the location by path" do
+      Compatriot::ImageDiffer.any_instance.stubs(:create_diffs_path)
+
       d = Compatriot::ImageDiffer.new(
         :paths => ["/home"],
         :browsers => [
@@ -14,41 +16,48 @@ describe Compatriot::ImageDiffer do
       d.compute!
       d.diff_for("/home").must_equal("diff.png")
     end
+
+    it "creates a diffs dir" do
+      FileUtils.expects(:mkdir_p).with("foo/bar/diffs")
+      d = Compatriot::ImageDiffer.new(
+        :results_directory => "foo/bar"
+      )
+      d.diffs_path.must_equal("foo/bar/diffs")
+    end
   end
 
   describe "diff" do
-    it "calls chunky_png on each image path" do
+    it "returns the filename of the diff" do
       file_one = stub
       file_two = stub
+      strategy = stub(:diff => "diff_filename.png")
+      ChunkyPNG::Image.stubs(:from_file)
 
-      ChunkyPNG::Image.expects(:from_file).with(file_one)
-      ChunkyPNG::Image.expects(:from_file).with(file_two)
+      c = Compatriot::ImageDiffer.new(
+        :strategy => strategy,
+        :results_directory => "something"
+      )
 
-      c = Compatriot::ImageDiffer.new
-      c.stubs(:color_difference)
-      c.diff([file_one, file_two])
-    end
-
-    it "returns the filename of the diff" do
+      c.diff([file_one, file_two]).must_equal("diff_filename.png")
     end
 
     it "uses the strategy passed in" do
-    end
-  end
+      file_one = stub
+      file_two = stub
+      strategy = stub
 
-  describe "self#color_difference" do
-    it "starts a new white image with the same dimensions" do
-      diff = stub_everything
-      ChunkyPNG::Image.expects(:new).with(
-        1,
-        2,
-        ChunkyPNG::Image::WHITE
-      ).returns(diff)
+      ChunkyPNG::Image.stubs(:from_file).returns(file_one, file_two)
 
-      image1 = stub_everything("1", :width => 1, :height => 2)
-      image2 = stub_everything("2", :width => 3, :height => 4)
+      strategy.expects(:diff).with(
+        file_one,
+        file_two
+      ).returns("diff_filename.png")
+      c = Compatriot::ImageDiffer.new(
+        :strategy => strategy,
+        :results_directory => "something"
+      )
 
-      Compatriot::ImageDiffer.new.color_difference(image1, image2, stub)
+      c.diff([file_one, file_two]).must_equal("diff_filename.png")
     end
   end
 end

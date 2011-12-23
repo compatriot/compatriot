@@ -48,7 +48,7 @@ module Compatriot
                     </td>
                   <% end %>
                   <td>
-                    <img src="<%= differ.diffs[path] %>" />
+                    <img src="<%= differ.diff_for(path) %>" />
                   </td>
                 </tr>
               <% end %>

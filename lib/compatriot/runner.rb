@@ -42,7 +42,8 @@ module Compatriot
       @differ = Compatriot::ImageDiffer.new(
         :paths    => @paths,
         :browsers => @browsers,
-        :strategy => :color_difference
+        :strategy => Compatriot::ColorDiffer,
+        :results_directory => @results_directory
       )
       @differ.compute!
     end
