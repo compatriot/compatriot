@@ -23,9 +23,11 @@ describe "Hit a list of paths for this app" do
 
     firefox_dir = File.join(current_results_dir, "firefox")
     chrome_dir  = File.join(current_results_dir, "chrome")
+    diffs_dir   = File.join(current_results_dir, "diffs")
 
-    Dir.glob(File.join(firefox_dir, "*.png")).size.must_equal 4
+    Dir.glob(File.join(firefox_dir, "*.png")).size.must_equal 2
     Dir.glob(File.join(chrome_dir, "*.png")).size.must_equal 2
+    Dir.glob(File.join(diffs_dir, "*.png")).size.must_equal 2
 
     results_index = IO.read(File.join(current_results_dir, "index.html"))
     xml = Nokogiri::XML(results_index)

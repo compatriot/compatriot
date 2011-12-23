@@ -50,7 +50,8 @@ describe Compatriot::ImageDiffer do
 
       strategy.expects(:diff).with(
         file_one,
-        file_two
+        file_two,
+        "something"
       ).returns("diff_filename.png")
       c = Compatriot::ImageDiffer.new(
         :strategy => strategy,

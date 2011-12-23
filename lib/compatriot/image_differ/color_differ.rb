@@ -4,9 +4,10 @@ include ChunkyPNG::Color
 module Compatriot
   class ColorDiffer
 
-    def self.diff(filename1, filename2)
+    def self.diff(filename1, filename2, results_directory)
       image1 = ChunkyPNG::Image.from_file(filename1)
       image2 = ChunkyPNG::Image.from_file(filename2)
+      @results_directory = results_directory
 
       output = ChunkyPNG::Image.new(image1.width, image1.height, WHITE)
       diff = []
@@ -25,11 +26,13 @@ module Compatriot
 
     def self.save_diff_image(output, filename1, filename2)
       filename = diff_name(filename1, filename2)
-      output.save(filename)
-      File.join(
-        File.basename(File.dirname(filename)),
-        File.basename(filename)
+      path = File.join(
+        @results_directory,
+        "diffs",
+        filename
       )
+      output.save(path)
+      File.join("diffs", filename)
     end
 
     def self.diff_name(image1, image2)

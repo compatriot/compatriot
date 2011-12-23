@@ -9,7 +9,7 @@ describe Compatriot::ColorDiffer do
     ChunkyPNG::Image.expects(:from_file).with("file_two").returns(image2)
     Compatriot::ColorDiffer.stubs(:save_diff_image)
 
-    Compatriot::ColorDiffer.diff("file_one", "file_two")
+    Compatriot::ColorDiffer.diff("file_one", "file_two", "some/dir")
   end
 
   it "starts a new white image with the same dimensions" do
@@ -26,7 +26,7 @@ describe Compatriot::ColorDiffer do
     ChunkyPNG::Image.stubs(:from_file).returns(image1, image2)
     Compatriot::ColorDiffer.stubs(:save_diff_image)
 
-    differ = Compatriot::ColorDiffer.diff(image1, image2)
+    differ = Compatriot::ColorDiffer.diff(image1, image2, "some/dir")
   end
 
   it "names the image based on the strategy and the browsers" do
