@@ -12,9 +12,10 @@ describe Compatriot::ImageDiffer do
       )
       d.expects(:diff).with(["1.png", "2.png"]).returns("diff.png")
       d.compute!
-      d.diffs["/home"].must_equal("diff.png")
+      d.diff_for("/home").must_equal("diff.png")
     end
   end
+
   describe "diff" do
     it "calls chunky_png on each image path" do
       file_one = stub

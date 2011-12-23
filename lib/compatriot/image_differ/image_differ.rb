@@ -4,13 +4,15 @@ include ChunkyPNG::Color
 module Compatriot
   class ImageDiffer
 
-    attr_reader :diffs
-
     def initialize(params = {})
       @paths    = params[:paths]
       @browsers = params[:browsers]
       @strategy = params[:strategy] || :color_difference
       @diffs    = {}
+    end
+
+    def diff_for(path)
+      @diffs[path]
     end
 
     def compute!
