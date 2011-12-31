@@ -31,6 +31,7 @@ What it will do in the future
 * Automatically compare the screenshots across browsers and flags those that are more than some configurable threshold different
 * Allow configuration of which browsers to use
 * Connect to virtual machines so that you don't have to have all the browsers on the machine you're running the tests on
+* Steal some of VCR's relish rake tasks
 
 
 How To Use
@@ -85,14 +86,17 @@ Many thanks to the wonderful libraries that make this gem possible:
 * [capybara](https://github.com/jnicklas/capybara)
 * [selenium-webdriver](http://seleniumhq.org/docs/01_introducing_selenium.html#selenium-2-aka-selenium-webdriver)
 * [chunky_png](https://github.com/wvanbergen/chunky_png) (and especially [this blog post about using chunky_png to create image diffs](http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/?utm_source=rubyweekly&utm_medium=email) by Jeff Kreeftmeijer)
+* [travis](http://travis-ci.org/) for CI
+* [relishapp](https://www.relishapp.com/) for documentation
+* [vcr](https://github.com/myronmarston/vcr) for having such awesome documentation that it inspired me to use Relishapp
 
 
 Contributors
 ------------
 * Carol Nichols ([twitter](http://twitter.com/carols10cents), [website](http://carol-nichols.com))
 * Andrew Cox ([twitter](https://twitter.com/coxandrew), [website](http://andrewcox.org/))
-* Kurtis Rainbolt-Greene ([twitter](https://twitter.com/krainboltgreene)) ([website](http://kurtisrainboltgreene.name/))
-* Steve Klabnik ([twitter](https://twitter.com/steveklabnik)) ([website](http://www.steveklabnik.com/))
+* Kurtis Rainbolt-Greene ([twitter](https://twitter.com/krainboltgreene), [website](http://kurtisrainboltgreene.name/))
+* Steve Klabnik ([twitter](https://twitter.com/steveklabnik), [website](http://www.steveklabnik.com/))
 * You???
 
 
