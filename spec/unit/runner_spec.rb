@@ -55,7 +55,7 @@ describe Compatriot::Runner do
 
   describe "#results_directory" do
     it "names a results directory in tmp/results based on the clock" do
-      runner = Compatriot::Runner.new(TestApp, ["/"], @fixed_clock)
+      runner = Compatriot::Runner.new(SampleApp, ["/"], @fixed_clock)
 
       runner.results_directory.must_equal(@results_dir_name)
     end

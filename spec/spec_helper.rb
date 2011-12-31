@@ -7,7 +7,7 @@ require 'mocha'
 
 require 'compatriot'
 
-require_relative "sample_app/test_app"
+require_relative "sample_app/sample_app"
 
 # A custom runner to enable before_suite and after_suite setup/teardown.
 # http://bfts.rubyforge.org/minitest/index.html

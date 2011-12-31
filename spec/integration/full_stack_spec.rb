@@ -12,7 +12,7 @@ describe "Hit a list of paths for this app" do
 
     FileUtils.remove_dir(results_tmp_dir, true)
 
-    Compatriot.app = TestApp
+    Compatriot.app = SampleApp
     Compatriot.run(%w[
       /
       /chrome-css-bug

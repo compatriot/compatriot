@@ -1,7 +1,7 @@
 require 'compatriot'
-require_relative "../spec/sample_app/test_app"
+require_relative "../spec/sample_app/sample_app"
 
-Compatriot.app = TestApp
+Compatriot.app = SampleApp
 
 Compatriot.run(%w[
   /

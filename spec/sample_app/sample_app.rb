@@ -2,12 +2,12 @@ require 'sinatra/base'
 require 'rack'
 require 'yaml'
 
-class TestApp < Sinatra::Base
+class SampleApp < Sinatra::Base
   set :root, File.dirname(__FILE__)
   set :static, true
 
   get '/' do
-    "<h1>Hello world!</h1"
+    "<h1>Hello world!</h1><div><a href='chrome-css-bug'>Try another page</a></div>"
   end
 
   get "/chrome-css-bug" do
@@ -17,5 +17,5 @@ class TestApp < Sinatra::Base
 end
 
 if __FILE__ == $0
-  Rack::Handler::WEBrick.run TestApp, :Port => 8070
+  Rack::Handler::WEBrick.run SampleApp, :Port => 8070
 end
