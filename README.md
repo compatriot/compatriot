@@ -12,6 +12,7 @@ Don't let your users find the inconsistencies and get to them first.
 What it does now
 ----------------
 
+* [Documentation on RelishApp](https://www.relishapp.com/clnclarinet/compatriot)
 * In firefox and chrome, visits a list of paths to a Rack app and takes a screenshot on each page.
 * Stores the screenshot in `tmp/results/_timestamp_/_browser_/`
 * Creates `tmp/results/_timestamp_/index.html` that shows thumbnails of each screenshot plus a diff of the two in a table for easy comparison.
@@ -20,7 +21,7 @@ What it does now
 What it will do in the future
 -----------------------------
 
-* Have documentation
+* Have more documentation (a start is [on RelishApp](https://www.relishapp.com/clnclarinet/compatriot)!)
 * Have a screenshot of sample results in the README
 * Have more and better tests
 * Find the largest, darkest contiguous region in the image diff and have a threshold of pass/fail based on that
@@ -40,6 +41,8 @@ How To Use
 * Ruby v1.9.2
 * [Firefox](http://getfirefox.net)
 * [chromedriver](http://code.google.com/p/selenium/wiki/ChromeDriver)
+
+There are setup examples in the examples directory and [documentation on RelishApp](https://www.relishapp.com/clnclarinet/compatriot)
 
 When you run a file similar to the examples it will save results in `_current-directory_/tmp/results/_timestamp_/_browser_`
 
