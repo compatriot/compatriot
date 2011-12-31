@@ -32,6 +32,7 @@ describe Compatriot::ImageDiffer do
       file_two = stub
       strategy = stub(:diff => "diff_filename.png")
       ChunkyPNG::Image.stubs(:from_file)
+      FileUtils.expects(:mkdir_p).with("something/diffs")
 
       c = Compatriot::ImageDiffer.new(
         :strategy => strategy,
@@ -47,12 +48,14 @@ describe Compatriot::ImageDiffer do
       strategy = stub
 
       ChunkyPNG::Image.stubs(:from_file).returns(file_one, file_two)
+      FileUtils.expects(:mkdir_p).with("something/diffs")
 
       strategy.expects(:diff).with(
         file_one,
         file_two,
         "something"
       ).returns("diff_filename.png")
+
       c = Compatriot::ImageDiffer.new(
         :strategy => strategy,
         :results_directory => "something"
