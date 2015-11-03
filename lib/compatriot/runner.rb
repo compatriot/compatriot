@@ -1,4 +1,5 @@
-require "fileutils"
+require 'fileutils'
+require 'date'
 
 module Compatriot
   class Runner
