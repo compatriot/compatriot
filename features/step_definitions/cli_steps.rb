@@ -37,15 +37,15 @@ Given /^a Sinatra app named "([^"]*)" with:$/ do |file_name, content|
 end
 
 Then /^"([^"]*)" should have (\d+) subdir/ do |directory, subdirectory_count|
-  in_current_dir do
+  cd('.') {
     (Dir.entries(directory) - [".", ".."]).size.should == subdirectory_count.to_i
-  end
+  }
 end
 
 Then /^there should be results for (\d+) screenshots?$/ do |screenshot_count|
   screenshot_count = screenshot_count.to_i
   results_tmp_dir = "tmp/results"
-  in_current_dir do
+  cd('.') {
     current_results_dir = (Dir.entries(results_tmp_dir) - [".", ".."]).first
     current_results_dir = File.join(results_tmp_dir, current_results_dir)
 
@@ -56,5 +56,5 @@ Then /^there should be results for (\d+) screenshots?$/ do |screenshot_count|
     Dir.glob(File.join(firefox_dir, "*.png")).size.should == 2
     Dir.glob(File.join(chrome_dir, "*.png")).size.should == 2
     Dir.glob(File.join(diffs_dir, "*.png")).size.should == 2
-  end
+  }
 end
