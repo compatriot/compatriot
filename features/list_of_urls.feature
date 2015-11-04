@@ -15,6 +15,7 @@ Feature: list_of_urls
       """
     And a file named "compatriot_urls.rb" with:
       """ruby
+      $:.unshift(File.expand_path('../../lib', File.dirname(__FILE__)))
       require 'compatriot'
       require_relative 'simple_app'
       Compatriot.app = SimpleApp
