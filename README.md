@@ -39,7 +39,7 @@ How To Use
 
 **Requirements**
 
-* Ruby v1.9.2
+* Ruby v2.1.7
 * [Firefox](http://getfirefox.net)
 * [chromedriver](http://code.google.com/p/selenium/wiki/ChromeDriver)
 
