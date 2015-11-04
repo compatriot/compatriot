@@ -1,4 +1,5 @@
-before_script: "sh -e /etc/init.d/xvfb start && sudo add-apt-repository ppa:chromium-daily/dev && sudo aptitude update && sudo aptitude -y -q install unzip chromium-browser"
 script: "bundle exec rake travis"
 rvm:
   - 2.1.7
+sudo: false
+
