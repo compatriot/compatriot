@@ -28,6 +28,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'relish', '~> 0.7.1'
 
   gem.add_dependency 'capybara', '~> 2.5.0'
+  gem.add_dependency 'selenium-webdriver', '~> 2.48.1'
   gem.add_dependency 'rake', '~> 10.4.2'
   gem.add_dependency 'chunky_png', '~> 1.3.5'
 end
