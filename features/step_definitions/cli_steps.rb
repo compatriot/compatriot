@@ -32,10 +32,6 @@ HERE
 end
 World(CompatriotHelpers)
 
-Given /^the directory "([^"]*)" does not exist$/ do |dir|
-  check_directory_presence([dir], false)
-end
-
 Given /^a Sinatra app named "([^"]*)" with:$/ do |file_name, content|
   write_file(file_name, create_sinatra_app(file_name, content))
 end
