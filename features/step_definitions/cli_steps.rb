@@ -38,7 +38,7 @@ end
 
 Then /^"([^"]*)" should have (\d+) subdir/ do |directory, subdirectory_count|
   cd('.') {
-    (Dir.entries(directory) - [".", ".."]).size.should == subdirectory_count.to_i
+    expect((Dir.entries(directory) - [".", ".."]).size).to eql subdirectory_count.to_i
   }
 end
 
@@ -53,8 +53,8 @@ Then /^there should be results for (\d+) screenshots?$/ do |screenshot_count|
     chrome_dir  = File.join(current_results_dir, "chrome")
     diffs_dir   = File.join(current_results_dir, "diffs")
 
-    Dir.glob(File.join(firefox_dir, "*.png")).size.should == 2
-    Dir.glob(File.join(chrome_dir, "*.png")).size.should == 2
-    Dir.glob(File.join(diffs_dir, "*.png")).size.should == 2
+    expect(Dir.glob(File.join(firefox_dir, "*.png")).size).to eql 2
+    expect(Dir.glob(File.join(chrome_dir, "*.png")).size).to eql 2
+    expect(Dir.glob(File.join(diffs_dir, "*.png")).size).to eql 2
   }
 end
