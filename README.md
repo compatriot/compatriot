@@ -51,7 +51,7 @@ When you run a file similar to the examples it will save results in `_current-di
 What to do to run its tests
 ---------------------------
 
-Using at least ruby 1.9.2:
+Using at least ruby 2.1.7:
 
     bundle install
     bundle exec rake test
