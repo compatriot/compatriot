@@ -15,37 +15,13 @@ require_relative "sample_app/sample_app"
 # before running the suite; it's useful to be able to look at the screenshots
 # after a test run so we're not deleting them then.
 
-module MiniTestWithHooks
-  class Unit < MiniTest::Unit
-    def before_suites
-    end
-
-    def after_suites
-    end
-
-    def _run_suites(suites, type)
-      begin
-        before_suites
-        super(suites, type)
-      ensure
-        after_suites
-      end
-    end
+module TestRunner
+  def before_setup
+    super
+    FileUtils.remove_dir(File.join("sample_app", "tmp", "results"), true)
   end
 end
 
-module MiniTestRemoveScreenshots
-  class Unit < MiniTestWithHooks::Unit
-
-    def before_suites
-      super
-      FileUtils.remove_dir(File.join("sample_app", "tmp", "results"), true)
-    end
-
-    def after_suites
-      super
-    end
-  end
+class Minitest::Spec
+  include TestRunner
 end
-
-MiniTest::Unit.runner = MiniTestRemoveScreenshots::Unit.new
