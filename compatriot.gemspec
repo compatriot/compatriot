@@ -20,14 +20,14 @@ Gem::Specification.new do |gem|
   gem.version       = Compatriot::VERSION
 
   # To get the newest minitest features!
-  gem.add_development_dependency 'minitest', '~> 2.8.1'
-  gem.add_development_dependency 'sinatra',  '~> 1.3.1'
-  gem.add_development_dependency 'mocha',    '~> 0.10.0'
-  gem.add_development_dependency 'cucumber', '~> 1.1.4'
-  gem.add_development_dependency 'aruba',    '~> 0.4.11'
-  gem.add_development_dependency 'relish',   '~> 0.5.3'
+  gem.add_development_dependency 'minitest', '~> 5.8.2'
+  gem.add_development_dependency 'sinatra', '~> 1.4.6'
+  gem.add_development_dependency 'mocha', '~> 1.1.0'
+  gem.add_development_dependency 'cucumber', '~> 2.1.0'
+  gem.add_development_dependency 'aruba', '~> 0.10.0'
+  gem.add_development_dependency 'relish', '~> 0.7.1'
 
-  gem.add_dependency 'capybara',   '~> 1.1.2'
-  gem.add_dependency 'rake',       '~> 0.9.2.2'
-  gem.add_dependency 'chunky_png', '~> 1.2.5'
+  gem.add_dependency 'capybara', '~> 2.5.0'
+  gem.add_dependency 'rake', '~> 10.4.2'
+  gem.add_dependency 'chunky_png', '~> 1.3.5'
 end
