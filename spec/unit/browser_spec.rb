@@ -86,6 +86,8 @@ describe Compatriot::Browser do
         :name => "foo",
         :screenshot_directory => "bar"
       )
+      app = stub
+      @b.initialize_capybara(app)
     end
 
     it "visits the path" do
@@ -132,6 +134,8 @@ describe Compatriot::Browser do
         :name => "foo",
         :screenshot_directory => "bar"
       )
+      app = stub
+      @b.initialize_capybara(app)
     end
 
     it "returns nil if there is no screenshot for that path" do
