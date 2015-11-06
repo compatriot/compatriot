@@ -72,10 +72,8 @@ module Compatriot
     end
 
     # Not called anywhere
-    def color_difference_total_score
-      pixels_total = image1.width * image1.height
-      pixels_changed = diff.length
-      pixels_changed_percentage = (diff.inject {|sum, value| sum + value} / pixels_total) * 100
+    def self.color_difference_percentage(image, diff)
+      (diff.reduce(:+) / image.pixels.length) * 100
     end
 
     def self.each_pixel(image)
