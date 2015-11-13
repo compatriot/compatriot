@@ -31,4 +31,5 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'selenium-webdriver', '~> 2.48', '>= 2.48.1'
   gem.add_runtime_dependency 'rake', '~> 10.4', '>= 10.4.2'
   gem.add_runtime_dependency 'chunky_png', '~> 1.3', '>= 1.3.5'
+  gem.add_runtime_dependency 'oily_png', '~> 1.2.0'
 end
