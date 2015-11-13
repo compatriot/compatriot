@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/compatriot/image_differ/color_differ'
+
+Compatriot::ColorDiffer.diff_to_file(ARGV[0], ARGV[1], ARGV[2])

@@ -4,6 +4,25 @@ include ChunkyPNG::Color
 module Compatriot
   class ColorDiffer
 
+    def self.diff_to_file(filename1, filename2, output_filename)
+      image1 = ChunkyPNG::Image.from_file(filename1)
+      image2 = ChunkyPNG::Image.from_file(filename2)
+
+      output = ChunkyPNG::Image.new(image1.width, image1.height, WHITE)
+      diff = []
+
+      each_pixel(image1) do |x, y|
+        pixel1 = image1[x,y]
+        pixel2 = image2[x,y]
+        unless pixel1 == pixel2
+          output[x,y], score = color_difference_of_pixels(pixel1, pixel2)
+          diff << score
+        end
+      end
+
+      output.save(output_filename)
+    end
+
     def self.diff(filename1, filename2, results_directory)
       image1 = ChunkyPNG::Image.from_file(filename1)
       image2 = ChunkyPNG::Image.from_file(filename2)
