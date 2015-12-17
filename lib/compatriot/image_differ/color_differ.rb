@@ -52,8 +52,14 @@ module Compatriot
         "diffs",
         filename
       )
+      create_directory_if_necessary(path)
       output.save(path)
       File.join("diffs", filename)
+    end
+
+    def self.create_directory_if_necessary(file)
+      dir = File.dirname(file)
+      FileUtils.mkdir_p(dir) unless File.directory?(dir)
     end
 
     def self.diff_name(image1, image2)
