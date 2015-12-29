@@ -61,5 +61,11 @@ describe Compatriot do
       result = Compatriot.percentage_changed(page, stubbed_test, 'and has a description')
       assert_equal(0.81, result.round(2))
     end
+
+    it 'returns 0 % if there is no difference' do
+      Compatriot::ColorDiffer.stubs(:diff).returns([])
+      result = Compatriot.percentage_changed(page, stubbed_test, 'and has a description')
+      assert_equal(0.0, result.round(2))
+    end
   end
 end

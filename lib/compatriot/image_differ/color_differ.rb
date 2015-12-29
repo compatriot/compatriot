@@ -81,6 +81,7 @@ module Compatriot
 
     # Not called anywhere
     def self.color_difference_percentage(image, diff)
+      return 0 if diff.length == 0
       (diff.reduce(:+) / image.pixels.length) * 100
     end
 
