@@ -41,6 +41,8 @@ module Compatriot
       end
 
       save_diff_image(output, filename1, filename2)
+
+      diff
     end
 
     def self.save_diff_image(output, filename1, filename2)
