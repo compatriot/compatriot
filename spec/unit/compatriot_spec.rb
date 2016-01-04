@@ -6,11 +6,12 @@ describe Compatriot do
   let(:stubbed_test) { stub_everything('test', name: 'test_001_will do something important', class: class_stub) }
   let(:page)         { Page.new }
 
-  SCREENSHOTS_DIR = 'test/screenshots'
-  CONTROL_IMG     = "#{SCREENSHOTS_DIR}/control/important_test_will_do_something_important_and_has_a_description.png"
-  CONTROL_IMG2    = "#{SCREENSHOTS_DIR}/control/important_test_will_do_something_important_another.png"
-  VARIABLE_IMG    = "#{SCREENSHOTS_DIR}/variable/important_test_will_do_something_important_and_has_a_description.png"
-  DIFF_IMG        = "#{SCREENSHOTS_DIR}/diffs/color_variable_vs_control_important_test_will_do_something_important_and_has_a_description.png"
+  SCREENSHOTS_DIR      = './tmp/test/screenshots'
+  CONTROL_IMG_FILENAME = 'important_test_will_do_something_important_and_has_a_description.png'
+  CONTROL_IMG          = "#{SCREENSHOTS_DIR}/control/#{CONTROL_IMG_FILENAME}"
+  CONTROL_IMG2         = "#{SCREENSHOTS_DIR}/control/important_test_will_do_something_important_another.png"
+  VARIABLE_IMG         = "#{SCREENSHOTS_DIR}/variable/important_test_will_do_something_important_and_has_a_description.png"
+  DIFF_IMG             = "#{SCREENSHOTS_DIR}/diffs/color_variable_vs_control_important_test_will_do_something_important_and_has_a_description.png"
 
   class Page
     def save_screenshot filepath
@@ -30,6 +31,9 @@ describe Compatriot do
 
   before do
     FileUtils.remove_dir(SCREENSHOTS_DIR) if File.directory?(SCREENSHOTS_DIR)
+    Compatriot.configure do |config| 
+      config.screenshot_directory = SCREENSHOTS_DIR
+    end
   end
 
   describe 'no control image is found' do
@@ -66,6 +70,22 @@ describe Compatriot do
       Compatriot::ColorDiffer.stubs(:diff).returns([])
       result = Compatriot.percentage_changed(page, stubbed_test, 'and has a description')
       assert_equal(0.0, result.round(2))
+    end
+  end
+
+  describe 'configuration' do
+    before do
+      @screenshot_directory = 'tmp/test_configuration'
+      @control_file = @screenshot_directory + '/control/' + CONTROL_IMG_FILENAME
+      Compatriot.configure do |config|
+        config.screenshot_directory = @screenshot_directory
+      end
+      FileUtils.remove_dir(@screenshot_directory) if File.directory?(SCREENSHOTS_DIR)
+    end
+
+    it 'can set the screenshot directory' do
+      Compatriot.take_screenshot(page, stubbed_test, 'and has a description')
+      assert File.exist?(@control_file), 'control image not found'
     end
   end
 end
