@@ -6,11 +6,11 @@ describe Compatriot do
   let(:stubbed_test) { stub_everything('test', name: 'test_001_will do something important', class: class_stub) }
   let(:page)         { Page.new }
 
-  SCREENSHOTS_DIR  = 'test/screenshots'
-  CONTROL_IMG  = "#{SCREENSHOTS_DIR}/control/important_test_will_do_something_important_and_has_a_description.png"
-  CONTROL_IMG2  = "#{SCREENSHOTS_DIR}/control/important_test_will_do_something_important_another.png"
-  VARIABLE_IMG = "#{SCREENSHOTS_DIR}/variable/important_test_will_do_something_important_and_has_a_description.png"
-  DIFF_IMG     = "#{SCREENSHOTS_DIR}/diffs/color_variable_vs_control_important_test_will_do_something_important_and_has_a_description.png"
+  SCREENSHOTS_DIR = 'test/screenshots'
+  CONTROL_IMG     = "#{SCREENSHOTS_DIR}/control/important_test_will_do_something_important_and_has_a_description.png"
+  CONTROL_IMG2    = "#{SCREENSHOTS_DIR}/control/important_test_will_do_something_important_another.png"
+  VARIABLE_IMG    = "#{SCREENSHOTS_DIR}/variable/important_test_will_do_something_important_and_has_a_description.png"
+  DIFF_IMG        = "#{SCREENSHOTS_DIR}/diffs/color_variable_vs_control_important_test_will_do_something_important_and_has_a_description.png"
 
   class Page
     def save_screenshot filepath
