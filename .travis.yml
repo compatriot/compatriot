@@ -8,5 +8,6 @@ before_script:
 script: "bundle exec rake test"
 rvm:
   - 2.1.7
+  - 2.2.4
 sudo: false
 
