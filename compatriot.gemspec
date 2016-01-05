@@ -23,9 +23,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'minitest', '~> 5.8', '>= 5.8.2'
   gem.add_development_dependency 'sinatra', '~> 1.4', '>= 1.4.6'
   gem.add_development_dependency 'mocha', '~> 1.1', '>= 1.1.0'
-  gem.add_development_dependency 'cucumber', '~> 2.1', '>= 2.1.0'
-  gem.add_development_dependency 'aruba', '~> 0.10.0'
-  gem.add_development_dependency 'relish', '~> 0.7.1'
   gem.add_development_dependency 'pry'
 
   gem.add_runtime_dependency 'capybara', '~> 2.5', '>= 2.5.0'
