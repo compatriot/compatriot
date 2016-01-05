@@ -18,3 +18,4 @@ tmp
 .DS_STORE
 spec/sample_app/chromedriver.log
 TAGS
+screenshots

@@ -26,6 +26,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'cucumber', '~> 2.1', '>= 2.1.0'
   gem.add_development_dependency 'aruba', '~> 0.10.0'
   gem.add_development_dependency 'relish', '~> 0.7.1'
+  gem.add_development_dependency 'pry'
 
   gem.add_runtime_dependency 'capybara', '~> 2.5', '>= 2.5.0'
   gem.add_runtime_dependency 'selenium-webdriver', '~> 2.48', '>= 2.48.1'

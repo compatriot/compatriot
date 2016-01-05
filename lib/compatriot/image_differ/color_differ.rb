@@ -41,6 +41,8 @@ module Compatriot
       end
 
       save_diff_image(output, filename1, filename2)
+
+      diff
     end
 
     def self.save_diff_image(output, filename1, filename2)
@@ -50,8 +52,14 @@ module Compatriot
         "diffs",
         filename
       )
+      create_directory_if_necessary(path)
       output.save(path)
       File.join("diffs", filename)
+    end
+
+    def self.create_directory_if_necessary(file)
+      dir = File.dirname(file)
+      FileUtils.mkdir_p(dir) unless File.directory?(dir)
     end
 
     def self.diff_name(image1, image2)
@@ -72,10 +80,9 @@ module Compatriot
     end
 
     # Not called anywhere
-    def color_difference_total_score
-      pixels_total = image1.width * image1.height
-      pixels_changed = diff.length
-      pixels_changed_percentage = (diff.inject {|sum, value| sum + value} / pixels_total) * 100
+    def self.color_difference_percentage(image, diff)
+      return 0 if diff.length == 0
+      (diff.reduce(:+) / image.pixels.length) * 100
     end
 
     def self.each_pixel(image)
