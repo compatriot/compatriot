@@ -2,15 +2,14 @@
 require File.expand_path('../lib/compatriot/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Carol Nichols"]
-  gem.email         = ["carol.nichols@gmail.com"]
-  gem.description   = 'Finds likely UI browser cross-compatibility issues.'
+  gem.authors       = ["Carol (Nichols || Goulding)", "Jeff Koenig"]
+  gem.email         = ["carol.nichols@gmail.com", "jkoenig311@gmail.com"]
+  gem.description   = 'Compare screenshots in your tests!'
   gem.summary       = %q{
-    Runs a command in multiple browsers using selenium then compares the
-    screenshots and presents those likely to have cross-browser incompatibilities.
+    Add assertions that screenshots taken during your tests do not differ from a base image. Test that the page looks the same as the last test run or that the page looks the same in multiple browsers!
   }
 
-  gem.homepage      = "https://github.com/clnclarinet/compatriot"
+  gem.homepage      = "https://github.com/carols10cents/compatriot"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
