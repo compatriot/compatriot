@@ -6,7 +6,7 @@ require "compatriot/image_differ/image_differ"
 
 module Compatriot
   class << self
-    attr_accessor :app, :screenshot_directory
+    attr_accessor :app, :screenshot_directory, :ui_difference_threshold
 
     def configure
       yield self
@@ -51,5 +51,6 @@ module Compatriot
 
   Compatriot.configure do |config|
     config.screenshot_directory = './compatriot/screenshots'
+    config.ui_difference_threshold  = 0
   end
 end
