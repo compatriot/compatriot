@@ -19,7 +19,6 @@ module Compatriot
     def take_screenshot(page, test, description)
       filename = filename_for_test(test, description)
       control_image_path = filepath_for_screenshot('control', filename)
-      variable_image_path = filepath_for_screenshot('variable', filename)
 
       if File.exist?(control_image_path)
         screenshot_type = 'variable'
