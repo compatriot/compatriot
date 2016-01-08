@@ -25,7 +25,7 @@ module Compatriot
       else
         screenshot_type = 'control'
       end
-      temp = page.save_screenshot filepath_for_screenshot(screenshot_type, filename)
+      page.save_screenshot filepath_for_screenshot(screenshot_type, filename)
     end
 
     def percentage_changed(page, test, description = '')
