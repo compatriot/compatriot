@@ -22,6 +22,7 @@ end
 
 class Minitest::Spec
   include TestRunner
+  include Compatriot::Assertions
 end
 
 class Page

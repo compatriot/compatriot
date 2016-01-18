@@ -1,3 +1,4 @@
+require "compatriot/assertions"
 require "compatriot/version"
 require "compatriot/runner"
 require "compatriot/browser"
@@ -51,6 +52,6 @@ module Compatriot
 
   Compatriot.configure do |config|
     config.screenshot_directory = './compatriot/screenshots'
-    config.ui_difference_threshold  = 0
+    config.ui_difference_threshold  = 0.0
   end
 end

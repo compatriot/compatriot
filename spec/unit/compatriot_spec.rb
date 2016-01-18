@@ -1,5 +1,4 @@
 require_relative '../spec_helper'
-require 'pry'
 
 describe Compatriot do
   let(:class_stub)   { stub_everything('class', name: 'important_test') }
