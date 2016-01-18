@@ -13,18 +13,6 @@ describe Compatriot do
   VARIABLE_IMG         = "#{SCREENSHOTS_DIR}/variable/important_test_will_do_something_important_and_has_a_description.png"
   DIFF_IMG             = "#{SCREENSHOTS_DIR}/diffs/color_variable_vs_control_important_test_will_do_something_important_and_has_a_description.png"
 
-  class Page
-    def save_screenshot filepath
-      root_dir = File.join(File.dirname(__FILE__), '../')
-      image_name = filepath.include?('control') ? '1' : '2'
-      src_img = root_dir + "/images/#{image_name}.png"
-      filepath_dir = File.dirname(filepath)
-      FileUtils.mkdir_p(filepath_dir) unless File.directory?(filepath_dir)
-      FileUtils.cp(src_img, filepath)
-      filepath
-    end
-  end
-
   def setup_control_image
     Page.new.save_screenshot CONTROL_IMG
   end
