@@ -25,6 +25,12 @@ class Minitest::Spec
   include Compatriot::Assertions
 end
 
+module FakeCapybara
+  def self.current_session
+    Page.new
+  end
+end
+
 class Page
   def save_screenshot filepath
     root_dir = File.join(File.dirname(__FILE__), './')

@@ -22,6 +22,6 @@ describe Compatriot::Assertions do
   end
 
   it 'can assert on assert_no_ui_changes' do
-    assert_no_ui_changes(page, 'this test')
+    assert_no_ui_changes('this test')
   end
 end

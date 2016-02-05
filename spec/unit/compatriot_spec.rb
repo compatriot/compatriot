@@ -20,13 +20,14 @@ describe Compatriot do
     FileUtils.remove_dir(SCREENSHOTS_DIR) if File.directory?(SCREENSHOTS_DIR)
     Compatriot.configure do |config| 
       config.screenshot_directory = SCREENSHOTS_DIR
+      config.framework = FakeCapybara
     end
   end
 
   describe 'no control image is found' do
     it 'it will create one' do
-      Compatriot.take_screenshot(page, stubbed_test, 'and has a description')
-      Compatriot.take_screenshot(page, stubbed_test, 'another')
+      Compatriot.take_screenshot(stubbed_test, 'and has a description')
+      Compatriot.take_screenshot(stubbed_test, 'another')
 
       assert File.exist?(CONTROL_IMG), 'control image not found'
       assert File.exist?(CONTROL_IMG2), 'control image not found'
@@ -39,23 +40,23 @@ describe Compatriot do
     end
 
     it 'stores a variable image' do
-      Compatriot.take_screenshot(page, stubbed_test, 'and has a description')
+      Compatriot.take_screenshot(stubbed_test, 'and has a description')
       assert File.exist?(VARIABLE_IMG)
     end
 
     it 'stores the image difference' do
-      Compatriot.percentage_changed(page, stubbed_test, 'and has a description')
+      Compatriot.percentage_changed( stubbed_test, 'and has a description')
       assert File.exist?(DIFF_IMG)
     end
 
     it 'returns the percentage difference' do
-      result = Compatriot.percentage_changed(page, stubbed_test, 'and has a description')
+      result = Compatriot.percentage_changed( stubbed_test, 'and has a description')
       assert_equal(0.81, result.round(2))
     end
 
     it 'returns 0 % if there is no difference' do
       Compatriot::ColorDiffer.stubs(:diff).returns([])
-      result = Compatriot.percentage_changed(page, stubbed_test, 'and has a description')
+      result = Compatriot.percentage_changed( stubbed_test, 'and has a description')
       assert_equal(0.0, result.round(2))
     end
   end
@@ -71,7 +72,7 @@ describe Compatriot do
     end
 
     it 'can set the screenshot directory' do
-      Compatriot.take_screenshot(page, stubbed_test, 'and has a description')
+      Compatriot.take_screenshot( stubbed_test, 'and has a description')
       assert File.exist?(@control_file), 'control image not found'
     end
   end
