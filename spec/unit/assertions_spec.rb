@@ -18,6 +18,7 @@ describe Compatriot::Assertions do
     FileUtils.remove_dir(SCREENSHOTS_DIR) if File.directory?(SCREENSHOTS_DIR)
     Compatriot.configure do |config| 
       config.screenshot_directory = SCREENSHOTS_DIR
+      config.framework = FakeCapybara
     end
   end
 
