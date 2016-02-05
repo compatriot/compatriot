@@ -22,4 +22,23 @@ end
 
 class Minitest::Spec
   include TestRunner
+  include Compatriot::Assertions
+end
+
+module FakeCapybara
+  def self.current_session
+    Page.new
+  end
+end
+
+class Page
+  def save_screenshot filepath
+    root_dir = File.join(File.dirname(__FILE__), './')
+    image_name = filepath.include?('control') ? '1' : '2'
+    src_img = root_dir + "/images/#{image_name}.png"
+    filepath_dir = File.dirname(filepath)
+    FileUtils.mkdir_p(filepath_dir) unless File.directory?(filepath_dir)
+    FileUtils.cp(src_img, filepath)
+    filepath
+  end
 end

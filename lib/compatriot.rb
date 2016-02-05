@@ -1,3 +1,4 @@
+require "compatriot/assertions"
 require "compatriot/version"
 require "compatriot/runner"
 require "compatriot/browser"
@@ -6,7 +7,9 @@ require "compatriot/image_differ/image_differ"
 
 module Compatriot
   class << self
-    attr_accessor :app, :screenshot_directory
+    attr_accessor :app, :screenshot_directory,
+                  :ui_difference_threshold, :framework,
+                  :show_diffs
 
     def configure
       yield self
@@ -16,7 +19,7 @@ module Compatriot
       Compatriot::Runner.start(app, paths)
     end
 
-    def take_screenshot(page, test, description)
+    def take_screenshot(test, description)
       filename = filename_for_test(test, description)
       control_image_path = filepath_for_screenshot('control', filename)
 
@@ -25,11 +28,11 @@ module Compatriot
       else
         screenshot_type = 'control'
       end
-      page.save_screenshot filepath_for_screenshot(screenshot_type, filename)
+      framework.current_session.save_screenshot filepath_for_screenshot(screenshot_type, filename)
     end
 
-    def percentage_changed(page, test, description = '')
-      variable_img_path = take_screenshot(page, test, description)
+    def percentage_changed(test, description = '')
+      variable_img_path = take_screenshot(test, description)
       control_img_path = filepath_for_screenshot('control', filename_for_test(test, description))
       diff = Compatriot::ColorDiffer.diff(variable_img_path, control_img_path, self.screenshot_directory + '/')
       variable_image = ChunkyPNG::Image.from_file(variable_img_path)
@@ -51,5 +54,8 @@ module Compatriot
 
   Compatriot.configure do |config|
     config.screenshot_directory = './compatriot/screenshots'
+    config.ui_difference_threshold  = 0.05
+    config.framework = Capybara #only supporting capybara until someone wants to support something else
+    config.show_diffs = false
   end
 end
