@@ -8,7 +8,8 @@ require "compatriot/image_differ/image_differ"
 module Compatriot
   class << self
     attr_accessor :app, :screenshot_directory,
-                  :ui_difference_threshold, :framework
+                  :ui_difference_threshold, :framework,
+                  :show_diffs
 
     def configure
       yield self
@@ -55,5 +56,6 @@ module Compatriot
     config.screenshot_directory = './compatriot/screenshots'
     config.ui_difference_threshold  = 0.05
     config.framework = Capybara #only supporting capybara until someone wants to support something else
+    config.show_diffs = false
   end
 end
