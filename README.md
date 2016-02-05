@@ -13,10 +13,10 @@ What it does now
 ----------------
 
 * [Documentation on RelishApp](https://www.relishapp.com/clnclarinet/compatriot)
-* In firefox and chrome, visits a list of paths to a Rack app and takes a screenshot on each page.
-* Stores the screenshot in `tmp/results/_timestamp_/_browser_/`
-* Creates `tmp/results/_timestamp_/index.html` that shows thumbnails of each screenshot plus a diff of the two in a table for easy comparison.
-
+* Adds a `assert_no_ui_changes` method to your tests
+* When called from your tests, it takes a screenshot and compares it to a control image to get percentage difference
+* If the difference is greater then the threshold, it fails the tests
+* Pairs well with [BrowserStacks automation feature](browserstack.com/automate) to run across many environments
 
 What it will do in the future
 -----------------------------
@@ -26,11 +26,7 @@ What it will do in the future
 * Have more and better tests
 * Find the largest, darkest contiguous region in the image diff and have a threshold of pass/fail based on that
 * Perform better on the image processing (by sampling/resizing, using oily_png, etc)
-* Given a list of URLs/paths to visit, will take a screenshot of each and display which URL it came from in the index
-* Given a test command that uses capybara, runs those tests and takes screenshots
 * Automatically compare the screenshots across browsers and flags those that are more than some configurable threshold different
-* Allow configuration of which browsers to use
-* Connect to virtual machines so that you don't have to have all the browsers on the machine you're running the tests on
 * Steal some of VCR's relish rake tasks
 
 
@@ -40,12 +36,53 @@ How To Use
 **Requirements**
 
 * Ruby v2.1.7
-* [Firefox](http://getfirefox.net)
-* [chromedriver](http://code.google.com/p/selenium/wiki/ChromeDriver)
+* [Capybara](http://jnicklas.github.io/capybara/)
 
-There are setup examples in the examples directory and [documentation on RelishApp](https://www.relishapp.com/clnclarinet/compatriot)
+1. Require `compatriot` in your test helper, 
+2. and include `Compatriot::Assertions` in your test class
+3. and configure Compatriot
 
-When you run a file similar to the examples it will save results in `_current-directory_/tmp/results/_timestamp_/_browser_`
+    ```ruby
+    require 'compatriot'
+
+    class IntegrationTest
+    include Compatriot::Assertions
+
+      Compatriot.configure do |config|
+        screenshot_directory = 
+          './test/screenshots/' +
+          caps['os'] + '_' +       #caps(Capabilities) is how we tell browserstack what environment to use
+          caps['os_version'] + '_' +
+          caps['browser'] + '_' +
+          caps['browser_version']
+        config.screenshot_directory = screenshot_directory.downcase
+        config.ui_difference_threshold = 0.05
+      end
+      ...
+    ```
+
+4. Call `assert_no_ui_changes` from your tests
+
+    ```ruby
+    it 'does not break the ui' do
+      visit some_page_path
+      assert_no_ui_changes('some page')
+    end
+    ```
+
+The first time through it will create the control image in `#{screenshot_directory}/control`. You should then review the screenshots and check them into source control as your baseline.
+Every run after that, it will take a variable image screenshot in `#{screenshot_directory}/variable` and a difference image in `#{screenshot_directory}/diffs`.
+
+`assert_no_ui_changes` takes an optional string parameter to allow you to make multiple assertions in a test and not run into name conflicts.
+
+To see the % difference for every assertion, and get the path the the difference, set `config.show_diffs = true` when you configure Compatriot.
+
+
+How to run this against multiple environments?
+----------------------------------------------
+
+The intentions for running this against multiple environments is that you would run your test suite once for every environment you wish to run it against.
+To accomplish this, you should set your `screenshot_directory` to include the current environment name, this way you will store your control images in separate directories.
 
 
 What to do to run its tests
@@ -93,10 +130,11 @@ Many thanks to the wonderful libraries that make this gem possible:
 
 Contributors
 ------------
-* Carol Nichols ([twitter](http://twitter.com/carols10cents), [website](http://carol-nichols.com))
+* [Carol Nichols](https://github.com/carols10cents) ([twitter](http://twitter.com/carols10cents), [website](http://carol-nichols.com))
 * Andrew Cox ([twitter](https://twitter.com/coxandrew), [website](http://andrewcox.org/))
 * Kurtis Rainbolt-Greene ([twitter](https://twitter.com/krainboltgreene), [website](http://kurtisrainboltgreene.name/))
-* Steve Klabnik ([twitter](https://twitter.com/steveklabnik), [website](http://www.steveklabnik.com/))
+* [Steve Klabnik](Klabnik) ([twitter](https://twitter.com/steveklabnik), [website](http://www.steveklabnik.com/))
+* [Jeff Koenig](https://github.com/thejefe) ([twitter](http://twitter.com/jeffkoenig)
 * You???
 
 
