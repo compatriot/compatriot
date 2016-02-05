@@ -53,7 +53,7 @@ module Compatriot
 
   Compatriot.configure do |config|
     config.screenshot_directory = './compatriot/screenshots'
-    config.ui_difference_threshold  = 0.0
+    config.ui_difference_threshold  = 0.05
     config.framework = Capybara #only supporting capybara until someone wants to support something else
   end
 end
