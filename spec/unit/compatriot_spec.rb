@@ -10,7 +10,7 @@ describe Compatriot do
   CONTROL_IMG          = "#{SCREENSHOTS_DIR}/control/#{CONTROL_IMG_FILENAME}"
   CONTROL_IMG2         = "#{SCREENSHOTS_DIR}/control/important_test_will_do_something_important_another.png"
   VARIABLE_IMG         = "#{SCREENSHOTS_DIR}/variable/important_test_will_do_something_important_and_has_a_description.png"
-  DIFF_IMG             = "#{SCREENSHOTS_DIR}/diffs/color_variable_vs_control_important_test_will_do_something_important_and_has_a_description.png"
+  DIFF_IMG             = "#{SCREENSHOTS_DIR}/diffs/important_test_will_do_something_important_and_has_a_description.png"
 
   def setup_control_image
     Page.new.save_screenshot CONTROL_IMG

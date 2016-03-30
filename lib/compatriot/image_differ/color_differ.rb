@@ -23,10 +23,9 @@ module Compatriot
       output.save(output_filename)
     end
 
-    def self.diff(filename1, filename2, results_directory)
+    def self.diff(filename1, filename2)
       image1 = ChunkyPNG::Image.from_file(filename1)
       image2 = ChunkyPNG::Image.from_file(filename2)
-      @results_directory = results_directory
 
       output = ChunkyPNG::Image.new(image1.width, image1.height, WHITE)
       diff = []
@@ -40,33 +39,20 @@ module Compatriot
         end
       end
 
-      save_diff_image(output, filename1, filename2)
+      save_diff_image(output, File.basename(filename1), File.basename(filename2))
 
       diff
     end
 
     def self.save_diff_image(output, filename1, filename2)
-      filename = diff_name(filename1, filename2)
-      path = File.join(
-        @results_directory,
-        "diffs",
-        filename
-      )
+      path = Compatriot.filepath_for_screenshot('diffs', filename1)
       create_directory_if_necessary(path)
       output.save(path)
-      File.join("diffs", filename)
     end
 
     def self.create_directory_if_necessary(file)
       dir = File.dirname(file)
       FileUtils.mkdir_p(dir) unless File.directory?(dir)
-    end
-
-    def self.diff_name(image1, image2)
-      browser1 = File.basename(File.dirname(image1))
-      browser2 = File.basename(File.dirname(image2))
-
-      "color_#{browser1}_vs_#{browser2}_#{File.basename(image1)}"
     end
 
     def self.color_difference_of_pixels(pixel1, pixel2)

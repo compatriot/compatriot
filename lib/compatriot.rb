@@ -34,7 +34,7 @@ module Compatriot
     def percentage_changed(test, description = '')
       variable_img_path = take_screenshot(test, description)
       control_img_path = filepath_for_screenshot('control', filename_for_test(test, description))
-      diff = Compatriot::ColorDiffer.diff(variable_img_path, control_img_path, self.screenshot_directory + '/')
+      diff = Compatriot::ColorDiffer.diff(variable_img_path, control_img_path)
       variable_image = ChunkyPNG::Image.from_file(variable_img_path)
       Compatriot::ColorDiffer.color_difference_percentage(variable_image, diff)
     end

@@ -25,7 +25,7 @@ module Compatriot
     end
 
     def diff(results)
-      @strategy.diff(results.first, results.last, @results_directory)
+      @strategy.diff(results.first, results.last)
     end
 
     def diffs_path
