@@ -1,7 +1,7 @@
 require 'minitest'
 
 module Compatriot
-  class Reporter < Minitest::StatisticsReporter
+  class MinitestReportDriver < Minitest::StatisticsReporter
     attr_accessor :tests
 
     def initialize(options={})
@@ -10,7 +10,7 @@ module Compatriot
       Minitest::Reporters.reporters << self
       Minitest::Test.class_eval do
         def run_with_hooks(*args)
-          reporter = Compatriot::Reporter
+          reporter = Compatriot::MinitestReportDriver
           reporter.before_test(self)
           result = run_without_hooks(*args)
           reporter.after_test(self)
