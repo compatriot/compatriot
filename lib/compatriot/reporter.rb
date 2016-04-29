@@ -7,6 +7,7 @@ module Compatriot
     def initialize(options={})
       super($stdout, options)
       self.tests = []
+      Minitest::Reporters.reporters << self
       Minitest::Test.class_eval do
         def run_with_hooks(*args)
           reporter = Compatriot::Reporter
@@ -16,7 +17,7 @@ module Compatriot
           result
         end
 
-        alias_method :run_without_hooks, :run
+        # alias_method :run_without_hooks, :run
         alias_method :run, :run_with_hooks
       end
     end
