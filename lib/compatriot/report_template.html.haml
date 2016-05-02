@@ -1,0 +1,38 @@
+%style
+  :plain
+    img {
+        width: 100%;
+        height: auto;
+        }
+    label.collapse{
+      cursor: pointer;
+      display: block;
+      background: green;
+    }
+    label.collapse.failed{
+      background: red;
+    }
+    label.collapse + input{
+      display: none; /* hide the checkboxes */
+    }
+    label.collapse + input + div{
+      display:none;
+    }
+    label.collapse + input:checked + div{
+      display:block;
+    }
+
+%h1 Compatriot Test Report
+- $tests.each_with_index do |test,i|
+  %label.collapse{ for: "_#{i}", class: ("failed" unless test.passed?) }= test.name
+  %input{id: "_#{i}", type: "checkbox"}
+  %div
+    %table
+      %tbody
+        %tr
+          %td
+            %img{src: Compatriot.filepath_for_screenshot('control', Compatriot.filename_for_test(test, ''))} control
+          %td
+            %img{src: Compatriot.filepath_for_screenshot('variable', Compatriot.filename_for_test(test, ''))} variable
+          %td
+            %img{src: Compatriot.filepath_for_screenshot('diffs', Compatriot.filename_for_test(test, ''))} diff

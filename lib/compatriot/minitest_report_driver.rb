@@ -1,4 +1,5 @@
 require 'minitest'
+require 'compatriot/reporter'
 
 module Compatriot
   class MinitestReportDriver < Minitest::StatisticsReporter
@@ -28,6 +29,7 @@ module Compatriot
 
     def report
       super
+      Compatriot::Reporter.new(tests).run
     end
 
   end

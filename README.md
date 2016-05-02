@@ -47,6 +47,8 @@ How To Use
 
     class IntegrationTest
     include Compatriot::Assertions
+    
+    Minitest::Reporters.use! Compatriot::MinitestReportDriver.new # Optional: if you want html output. See MinitestReporters for more info
 
       Compatriot.configure do |config|
         screenshot_directory = 
