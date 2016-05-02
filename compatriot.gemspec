@@ -20,6 +20,7 @@ Gem::Specification.new do |gem|
   gem.licenses      = "MIT"
 
   gem.add_development_dependency 'minitest', '~> 5.8', '>= 5.8.2'
+  gem.add_development_dependency 'minitest-reporters', '~> 1.1', '>= 1.1.8'
   gem.add_development_dependency 'sinatra', '~> 1.4', '>= 1.4.6'
   gem.add_development_dependency 'mocha', '~> 1.1', '>= 1.1.0'
   gem.add_development_dependency 'pry'

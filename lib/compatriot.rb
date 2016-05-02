@@ -4,7 +4,7 @@ require "compatriot/runner"
 require "compatriot/browser"
 require "compatriot/results_presenter"
 require "compatriot/image_differ/image_differ"
-require "compatriot/reporter"
+require "compatriot/minitest_report_driver"
 
 module Compatriot
   class << self
@@ -53,7 +53,7 @@ module Compatriot
     end
   end
 
-  Compatriot::MinitestReportDriver.new
+  Minitest::Reporters.use! Compatriot::MinitestReportDriver.new
   Compatriot.configure do |config|
     config.screenshot_directory = './compatriot/screenshots'
     config.ui_difference_threshold  = 0.05
