@@ -3,7 +3,10 @@
     img {
         width: 100%;
         height: auto;
-        }
+    }
+    label.bold{
+        font-weight: bold;
+    }
     label.collapse{
       cursor: pointer;
       display: block;
@@ -24,15 +27,19 @@
 
 %h1 Compatriot Test Report
 - $tests.each_with_index do |test,i|
-  %label.collapse{ for: "_#{i}", class: ("failed" unless test.passed?) }= test.name
-  %input{id: "_#{i}", type: "checkbox"}
-  %div
-    %table
-      %tbody
-        %tr
-          %td
-            %img{src: Compatriot.filepath_for_screenshot('control', Compatriot.filename_for_test(test, ''))} control
-          %td
-            %img{src: Compatriot.filepath_for_screenshot('variable', Compatriot.filename_for_test(test, ''))} variable
-          %td
-            %img{src: Compatriot.filepath_for_screenshot('diffs', Compatriot.filename_for_test(test, ''))} diff
+  - test.compatriot_assertion_titles.each_with_index do |title,j|
+    %label.collapse{ for: "_#{i}.#{j}", class: ("failed" unless test.passed?) }= test.location + ":" + title
+    %input{id: "_#{i}.#{j}", type: "checkbox"}
+    %div
+      %table
+        %tbody
+          %tr
+            %td
+              %label.bold Control
+              %img{src: Compatriot.filepath_for_screenshot('control', Compatriot.filename_for_test(test, title))}
+            %td
+              %label.bold Variable
+              %img{src: Compatriot.filepath_for_screenshot('variable', Compatriot.filename_for_test(test, title))}
+            %td
+              %label.bold Diff
+              %img{src: Compatriot.filepath_for_screenshot('diffs', Compatriot.filename_for_test(test, title))}
