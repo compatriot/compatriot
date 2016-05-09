@@ -5,10 +5,13 @@ module Compatriot
     def assert_no_ui_changes(title = '')
       class << self
         attr_accessor :compatriot_assertion_titles
+        attr_accessor :compatriot_percentages_changed
       end
       self.compatriot_assertion_titles ||= []
       self.compatriot_assertion_titles << title
+      self.compatriot_percentages_changed ||= []
       diff = Compatriot.percentage_changed(self, title)
+      self.compatriot_percentages_changed << diff
       diff_file = Compatriot.filepath_for_screenshot('diffs', Compatriot.filename_for_test(self, title))
       puts "% diff is #{diff}. #{diff_file}" if Compatriot.show_diffs
       pass = diff <= Compatriot.ui_difference_threshold

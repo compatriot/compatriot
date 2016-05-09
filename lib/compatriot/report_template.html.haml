@@ -27,20 +27,18 @@
 
 %h1 Compatriot Test Report
 - $tests.each_with_index do |test,i|
-  - if test.respond_to? :compatriot_assertion_titles
-    - test.compatriot_assertion_titles.each_with_index do |title,j|
-      %label.collapse{ for: "_#{i}.#{j}", class: ("failed" unless test.passed?) }= test.location + ":" + title
-      %input{id: "_#{i}.#{j}", type: "checkbox"}
-      %div
-        %table
-          %tbody
-            %tr
-              %td
-                %label.bold Control
-                %img{src: Compatriot.filepath_for_screenshot('control', Compatriot.filename_for_test(test, title))}
-              %td
-                %label.bold Variable
-                %img{src: Compatriot.filepath_for_screenshot('variable', Compatriot.filename_for_test(test, title))}
-              %td
-                %label.bold Diff
-                %img{src: Compatriot.filepath_for_screenshot('diffs', Compatriot.filename_for_test(test, title))}
+  %label.collapse{ for: "_#{i}", class: test[:status] }= test[:label]
+  %input{id: "_#{i}", type: "checkbox"}
+  %div
+    %table
+      %tbody
+        %tr
+          %td
+            %label.bold Control
+            %img{src: test[:control_image_path]}
+          %td
+            %label.bold Variable
+            %img{src: test[:variable_image_path]}
+          %td
+            %label.bold Diff
+            %img{src: test[:diff_image_path]}
