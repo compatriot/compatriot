@@ -8,6 +8,8 @@ require 'compatriot'
 
 require_relative "sample_app/sample_app"
 
+SCREENSHOTS_DIR      = './tmp/test/screenshots'
+
 # A custom runner to enable before_suite and after_suite setup/teardown.
 # http://bfts.rubyforge.org/minitest/index.html
 # Only using it to delete the screenshots that result from running the tests
@@ -19,11 +21,6 @@ module TestRunner
     super
     FileUtils.remove_dir(File.join("sample_app", "tmp", "results"), true)
   end
-end
-
-class Minitest::Spec
-  include TestRunner
-  include Compatriot::Assertions
 end
 
 module FakeCapybara
@@ -41,5 +38,14 @@ class Page
     FileUtils.mkdir_p(filepath_dir) unless File.directory?(filepath_dir)
     FileUtils.cp(src_img, filepath)
     filepath
+  end
+end
+
+class Minitest::Spec
+  include TestRunner
+  include Compatriot::Assertions
+  Compatriot.configure do |config|
+    config.screenshot_directory = SCREENSHOTS_DIR
+    config.framework = FakeCapybara
   end
 end

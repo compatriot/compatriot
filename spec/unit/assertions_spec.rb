@@ -3,7 +3,6 @@ require_relative '../spec_helper'
 describe Compatriot::Assertions do
   let(:page) { Page.new }
 
-  SCREENSHOTS_DIR      = './tmp/test/screenshots'
   CONTROL_IMG_FILENAME = 'important_test_will_do_something_important_and_has_a_description.png'
   CONTROL_IMG          = "#{SCREENSHOTS_DIR}/control/#{CONTROL_IMG_FILENAME}"
   CONTROL_IMG2         = "#{SCREENSHOTS_DIR}/control/important_test_will_do_something_important_another.png"
@@ -16,10 +15,6 @@ describe Compatriot::Assertions do
 
   before do
     FileUtils.remove_dir(SCREENSHOTS_DIR) if File.directory?(SCREENSHOTS_DIR)
-    Compatriot.configure do |config| 
-      config.screenshot_directory = SCREENSHOTS_DIR
-      config.framework = FakeCapybara
-    end
   end
 
   it 'can assert on assert_no_ui_changes' do
