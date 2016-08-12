@@ -49,7 +49,7 @@ module Compatriot
     end
 
     def filepath_for_screenshot(type, filename)
-      self.screenshot_directory + '/' + type + '/' + filename
+      File.expand_path(self.screenshot_directory + '/' + type + '/' + filename)
     end
   end
 
