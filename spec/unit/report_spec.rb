@@ -41,9 +41,9 @@ describe Compatriot::Reporter do
                                compatriot_percentages_changed: [ 0.02 ],
                                passed?: true)]
       formated_test = Compatriot::Reporter.new(tests).format(tests)[0]
-      formated_test[:control_image_path].must_equal File.expand_path("./tmp/test/screenshots/control/mocha::mock_viewing_a_specific_report_did_stuff.png")
-      formated_test[:variable_image_path].must_equal File.expand_path("./tmp/test/screenshots/variable/mocha::mock_viewing_a_specific_report_did_stuff.png")
-      formated_test[:diff_image_path].must_equal File.expand_path("./tmp/test/screenshots/diffs/mocha::mock_viewing_a_specific_report_did_stuff.png")
+      formated_test[:control_image_path].must_equal './tmp/test/screenshots/control/mocha::mock_viewing_a_specific_report_did_stuff.png'
+      formated_test[:variable_image_path].must_equal './tmp/test/screenshots/variable/mocha::mock_viewing_a_specific_report_did_stuff.png'
+      formated_test[:diff_image_path].must_equal './tmp/test/screenshots/diffs/mocha::mock_viewing_a_specific_report_did_stuff.png'
     end
   end
 

@@ -25,9 +25,9 @@ module Compatriot
             label: test.location + ':' + title + ':' + test.compatriot_percentages_changed[j].to_s + "% difference",
             percentage_changed: test.compatriot_percentages_changed[j],
             status: test.passed? ? "passed" : "failed",
-            control_image_path: Compatriot.filepath_for_screenshot('control', Compatriot.filename_for_test(test, title)),
-            variable_image_path: Compatriot.filepath_for_screenshot('variable', Compatriot.filename_for_test(test, title)),
-            diff_image_path: Compatriot.filepath_for_screenshot('diffs', Compatriot.filename_for_test(test, title)),
+            control_image_path: Compatriot.relative_filepath_for_screenshot('control', Compatriot.filename_for_test(test, title)),
+            variable_image_path: Compatriot.relative_filepath_for_screenshot('variable', Compatriot.filename_for_test(test, title)),
+            diff_image_path: Compatriot.relative_filepath_for_screenshot('diffs', Compatriot.filename_for_test(test, title)),
           }
           formated_tests << formated_test
         end
