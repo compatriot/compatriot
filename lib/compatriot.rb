@@ -1,10 +1,8 @@
 require "compatriot/assertions"
 require "compatriot/version"
-require "compatriot/runner"
-require "compatriot/browser"
-require "compatriot/results_presenter"
 require "compatriot/image_differ/image_differ"
 require "compatriot/minitest_report_driver"
+require "capybara"
 
 module Compatriot
   class << self
@@ -14,10 +12,6 @@ module Compatriot
 
     def configure
       yield self
-    end
-
-    def run(paths)
-      Compatriot::Runner.start(app, paths)
     end
 
     def take_screenshot(test, description)
