@@ -12,8 +12,7 @@ Don't let your users find the inconsistencies and get to them first.
 What it does now
 ----------------
 
-* [Documentation on RelishApp](https://www.relishapp.com/clnclarinet/compatriot)
-* Adds a `assert_no_ui_changes` method to your tests
+* Adds a `assert_no_ui_changes` method to your test assertions
 * When called from your tests, it takes a screenshot and compares it to a control image to get percentage difference
 * If the difference is greater then the threshold, it fails the tests
 * Pairs well with [BrowserStacks automation feature](browserstack.com/automate) to run across many environments
@@ -21,14 +20,10 @@ What it does now
 What it will do in the future
 -----------------------------
 
-* Have more documentation (a start is [on RelishApp](https://www.relishapp.com/clnclarinet/compatriot)!)
 * Have a screenshot of sample results in the README
 * Have more and better tests
-* Find the largest, darkest contiguous region in the image diff and have a threshold of pass/fail based on that
 * Perform better on the image processing (by sampling/resizing, using oily_png, etc)
-* Automatically compare the screenshots across browsers and flags those that are more than some configurable threshold different
-* Steal some of VCR's relish rake tasks
-
+* Show a better image difference
 
 How To Use
 ----------
@@ -68,14 +63,24 @@ How To Use
     ```ruby
     it 'does not break the ui' do
       visit some_page_path
-      assert_no_ui_changes('some page')
+      assert_no_ui_changes
     end
     ```
 
 The first time through it will create the control image in `#{screenshot_directory}/control`. You should then review the screenshots and check them into source control as your baseline.
-Every run after that, it will take a variable image screenshot in `#{screenshot_directory}/variable` and a difference image in `#{screenshot_directory}/diffs`.
+Every run after that, it will take a variable image screenshot in `#{screenshot_directory}/variable` and generate a difference image in `#{screenshot_directory}/diffs`.
 
 `assert_no_ui_changes` takes an optional string parameter to allow you to make multiple assertions in a test and not run into name conflicts.
+
+example:
+```ruby
+it 'has multiple ui change assertions' do
+  visit page_1
+  assert_no_ui_changes 'page 1'
+  visit page_2
+  assert_no_ui_changes 'page 2'
+end
+```
 
 To see the % difference for every assertion, and get the path the the difference, set `config.show_diffs = true` when you configure Compatriot.
 
@@ -105,7 +110,7 @@ How You Can Contribute
 
 We'd really like to know if something is wrong, so please file an issue on the Issue List if you have a problem, suggestion, unsupported use case, etc.
 
-This is a very rough proof-of-concept at this point, so there are many opportunities for improvement. Feel free to:
+There are many opportunities for improvement. Feel free to:
 
 * **Fork** the repository
 * **Clone the repository** locally, or **edit via Github**
@@ -126,9 +131,6 @@ Many thanks to the wonderful libraries that make this gem possible:
 * [selenium-webdriver](http://seleniumhq.org/docs/01_introducing_selenium.html#selenium-2-aka-selenium-webdriver)
 * [chunky_png](https://github.com/wvanbergen/chunky_png) (and especially [this blog post about using chunky_png to create image diffs](http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/?utm_source=rubyweekly&utm_medium=email) by Jeff Kreeftmeijer)
 * [travis](http://travis-ci.org/) for CI
-* [relishapp](https://www.relishapp.com/) for documentation
-* [vcr](https://github.com/myronmarston/vcr) for having such awesome documentation that it inspired me to use Relishapp
-
 
 Contributors
 ------------
