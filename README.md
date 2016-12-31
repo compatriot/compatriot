@@ -91,6 +91,7 @@ How to run this against multiple environments?
 The intentions for running this against multiple environments is that you would run your test suite once for every environment you wish to run it against.
 To accomplish this, you should set your `screenshot_directory` to include the current environment name, this way you will store your control images in separate directories.
 
+*Note: The configuration example above shows you how to set the directory using the specified capabilities.*
 
 What to do to run its tests
 ---------------------------
