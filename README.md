@@ -1,6 +1,6 @@
 Compatriot
 ==========
-[![Build Status](https://secure.travis-ci.org/carols10cents/compatriot.png?branch=master)](http://travis-ci.org/carols10cents/compatriot)
+[![Build Status](https://secure.travis-ci.org/compatriot/compatriot.png?branch=master)](http://travis-ci.org/compatriot/compatriot)
 
 **Compat**ibility + **riot**! It's the **friend** that helps with browser compatibility!
 This Ruby gem makes cross-browser testing less painful.
