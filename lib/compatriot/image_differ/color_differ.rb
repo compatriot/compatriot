@@ -13,7 +13,14 @@ module Compatriot
 
       each_pixel(image1) do |x, y|
         pixel1 = image1[x,y]
-        pixel2 = image2[x,y]
+        # If the dimensions of the comparison image are not exactly
+        # the same as image1, ChunkyPNG throws an error and we get
+        # no diff. Let's produce a diff instead
+        begin
+          pixel2 = image2[x,y]
+        rescue ChunkyPNG::OutOfBounds
+          pixel2 = 0 # Make it black
+        end
         unless pixel1 == pixel2
           output[x,y], score = color_difference_of_pixels(pixel1, pixel2)
           diff << score
@@ -32,7 +39,14 @@ module Compatriot
 
       each_pixel(image1) do |x, y|
         pixel1 = image1[x,y]
-        pixel2 = image2[x,y]
+        # If the dimensions of the comparison image are not exactly
+        # the same as image1, ChunkyPNG throws an error and we get
+        # no diff. Let's produce a diff instead
+        begin
+          pixel2 = image2[x,y]
+        rescue ChunkyPNG::OutOfBounds
+          pixel2 = 0 # Make it black
+        end
         unless pixel1 == pixel2
           output[x,y], score = color_difference_of_pixels(pixel1, pixel2)
           diff << score
